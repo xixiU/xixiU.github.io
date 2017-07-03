@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>初来的xiaomu</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2017-07-03T05:42:54.891Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>haha无知</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>毕业啦</title>
+    <link href="http://yoursite.com/2017/07/03/%E9%87%8D%E6%9B%B4/"/>
+    <id>http://yoursite.com/2017/07/03/重更/</id>
+    <published>2017-07-03T05:42:54.911Z</published>
+    <updated>2017-07-03T05:42:54.891Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="临近毕业，本站重新开始更新。"><a href="#临近毕业，本站重新开始更新。" class="headerlink" title="临近毕业，本站重新开始更新。"></a>临近毕业，本站重新开始更新。</h1><h2 id="毕业了"><a href="#毕业了" class="headerlink" title="毕业了"></a>毕业了</h2><p>python爬虫也很长一段时间没有进一步学习了，最近准备重新学习，期待自己以后可以坚持学习，并留下相关的脚印。<code>请大神手下留情</code> </p>
+<p><code>计划学习以下内容</code></p>
+<ol>
+<li>python3爬虫及相关</li>
+<li>图像处理</li>
+<li>机器学习</li>
+</ol>
+<h2 id="反馈"><a href="#反馈" class="headerlink" title="反馈"></a>反馈</h2><p>若有问题，请直接留言，我会尽快回复<br><code>不知道会不会有读者,,,</code></p>
+]]></content>
+    
+    <summary type="html">
+    
+      临近毕业，本站重新开始更新，期待自己可以坚持
+    
+    </summary>
+    
+      <category term="说明" scheme="http://yoursite.com/categories/%E8%AF%B4%E6%98%8E/"/>
+    
+    
+  </entry>
+  
+</feed>
