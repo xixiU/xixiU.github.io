@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-07-03T13:43:23.035Z</updated>
+  <updated>2017-07-03T13:45:56.140Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,8 +19,8 @@
     <title>毕业啦</title>
     <link href="http://yoursite.com/2017/07/03/%E9%87%8D%E6%9B%B4/"/>
     <id>http://yoursite.com/2017/07/03/重更/</id>
-    <published>2017-07-03T13:43:23.039Z</published>
-    <updated>2017-07-03T13:43:23.035Z</updated>
+    <published>2017-07-03T13:45:56.144Z</published>
+    <updated>2017-07-03T13:45:56.140Z</updated>
     
     <content type="html"><![CDATA[<h1 id="临近毕业，本站重新开始更新。"><a href="#临近毕业，本站重新开始更新。" class="headerlink" title="临近毕业，本站重新开始更新。"></a>临近毕业，本站重新开始更新。</h1><h2 id="毕业了"><a href="#毕业了" class="headerlink" title="毕业了"></a>毕业了</h2><p>python爬虫也很长一段时间没有进一步学习了，最近准备重新学习，期待自己以后可以坚持学习，并留下相关的脚印。<code>请大神手下留情</code> </p>
 <p><code>计划学习以下内容</code></p>
@@ -33,7 +33,7 @@
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>本页面在搭建过程中主要参考一下页面</p>
 <ol>
 <li><a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="external">Hexo官方文档</a></li>
-<li><a href="http://lss53.github.io/hexo-theme-plugin.html" target="_blank" rel="external">lss53</a></li>
+<li><a href="http://lss53.github.io/" target="_blank" rel="external">lss53</a></li>
 </ol>
 ]]></content>
     
