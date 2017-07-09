@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-07-04T02:43:54.826Z</updated>
+  <updated>2017-07-09T02:42:06.289Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,66 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>selenium3环境配置及其他细节优化</title>
+    <link href="http://yoursite.com/2017/07/09/python3-selenium3%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%85%B6%E4%BB%96%E7%BB%86%E8%8A%82%E4%BC%98%E5%8C%96/"/>
+    <id>http://yoursite.com/2017/07/09/python3-selenium3环境配置及其他细节优化/</id>
+    <published>2017-07-09T02:42:06.325Z</published>
+    <updated>2017-07-09T02:42:06.289Z</updated>
+    
+    <content type="html"><![CDATA[<p>之前在windows使用的firefox和chrome都是绿色版，配置的selenium3一直没有成功，于是尝试着在Linux下配置，成功配置了！</p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>OS: Linux ubuntu 16.04<br>python3:Python 3.5.2<br>Firefox默认安装</p>
+<p>#下载selenium3#</p>
+<ol>
+<li><p>确定操作系统架构<br>打开<code>终端</code>，输入<code>sudo uname -p</code></p>
+<ul>
+<li>若返回<code>i686</code>，证明为32为操作系统</li>
+<li>若返回<code>x86_64</code>,证明为64位操作系统</li>
+</ul>
+</li>
+<li><p>安装selenium3<br>对于同时安装python2与python3的环境而言，采用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip install selenium3</span><br></pre></td></tr></table></figure>
+<p>若提示权限不够，加上sudo，即</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo python3 -m pip install selenium3</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下载geckodriver<br>若firefox版本过高，需要安装geckodriver<br>这里是<a href="https://github.com/mozilla/geckodriver/releases" target="_blank" rel="external">下载地址</a>)<br>选择对应操作系统版本的下载，然后<code>解压，并进入解压之后的目录</code>，接着<br>安装geckodriver <code>记住要在解压之后的父目录操作</code><br>cp geckodriver /usr/local/bin/</p>
+</li>
+<li><p>安装xvfb<br>sudo apt-get install xvfb</p>
+</li>
+<li><p>安装pyvirtualdisplay</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip install pyvirtualdisplay</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试 保存为test.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">driver = webdriver.Firefox()</span><br><span class="line"></span><br><span class="line">driver.get(<span class="string">"http://www.baidu.com"</span>)</span><br><span class="line">driver.find_element_by_id(<span class="string">"kw"</span>).send_keys(<span class="string">"python开发"</span>)</span><br><span class="line">driver.find_element_by_id(<span class="string">"su"</span>).click()</span><br><span class="line"></span><br><span class="line">time.sleep(<span class="number">5</span>) <span class="comment">#等待5s，关闭浏览器。</span></span><br><span class="line"></span><br><span class="line">driver.quit()</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>然后运行</p>
+<p>若报错selenium.common.exceptions.WebDriverException: Message: ‘geckodriver’ executable may have wrong permissions</p>
+<ul>
+<li>定位到之前geckodriver的目录，设置权限为-rwxr-xr-x<br>即<code>sudo chmod 755 geckodriver</code></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      ubuntu下python3+selenium3环境配置
+    
+    </summary>
+    
+      <category term="python爬虫" scheme="http://yoursite.com/categories/python%E7%88%AC%E8%99%AB/"/>
+    
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="爬虫" scheme="http://yoursite.com/tags/%E7%88%AC%E8%99%AB/"/>
+    
+  </entry>
+  
+  <entry>
     <title>毕业啦</title>
     <link href="http://yoursite.com/2017/07/04/%E9%87%8D%E6%9B%B4/"/>
     <id>http://yoursite.com/2017/07/04/重更/</id>
-    <published>2017-07-04T02:43:54.838Z</published>
-    <updated>2017-07-04T02:43:54.826Z</updated>
+    <published>2017-07-04T02:45:55.206Z</published>
+    <updated>2017-07-04T02:45:55.202Z</updated>
     
     <content type="html"><![CDATA[<h1 id="临近毕业，本站重新开始更新。"><a href="#临近毕业，本站重新开始更新。" class="headerlink" title="临近毕业，本站重新开始更新。"></a>临近毕业，本站重新开始更新。</h1><h2 id="毕业了"><a href="#毕业了" class="headerlink" title="毕业了"></a>毕业了</h2><p>python爬虫也很长一段时间没有进一步学习了，最近准备重新学习，期待自己以后可以坚持学习，并留下相关的脚印。<code>请大神手下留情</code> </p>
 <p><code>计划学习以下内容</code></p>
