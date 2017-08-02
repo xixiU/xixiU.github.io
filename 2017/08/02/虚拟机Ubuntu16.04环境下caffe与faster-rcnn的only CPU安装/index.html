@@ -1,28 +1,374 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-  <title>初来的xiaomu</title>
+<!doctype html>
+
+
+
   
-  <link href="/atom.xml" rel="self"/>
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
-  <link href="http://yoursite.com/"/>
-  <updated>2017-08-02T12:02:46.044Z</updated>
-  <id>http://yoursite.com/</id>
   
-  <author>
-    <name>haha无知</name>
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
     
-  </author>
-  
-  <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>虚拟机下caffe与faster-rcnn的only CPU安装</title>
-    <link href="http://yoursite.com/2017/08/02/%E8%99%9A%E6%8B%9F%E6%9C%BAUbuntu16.04%E7%8E%AF%E5%A2%83%E4%B8%8Bcaffe%E4%B8%8Efaster-rcnn%E7%9A%84only%20CPU%E5%AE%89%E8%A3%85/"/>
-    <id>http://yoursite.com/2017/08/02/虚拟机Ubuntu16.04环境下caffe与faster-rcnn的only CPU安装/</id>
-    <published>2017-08-02T12:02:46.056Z</published>
-    <updated>2017-08-02T12:02:46.044Z</updated>
     
-    <content type="html"><![CDATA[<p>虚拟机ubuntu下caffe与faster-rcnn的only CPU安装教程.尝试记录安装过程，给以后配置提供参考<br><a href="http://blog.csdn.net/zyb19931130/article/details/53842791" target="_blank" rel="external">主要参考1http://blog.csdn.net/zyb19931130/article/details/53842791</a><br><a href="http://blog.csdn.net/zoro_lov3/article/details/60581174" target="_blank" rel="external">主要参考2http://blog.csdn.net/zoro_lov3/article/details/60581174</a></p>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python,rcnn," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="初来的xiaomu" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="虚拟机ubuntu下caffe与faster-rcnn的only CPU安装教程.尝试记录安装过程，给以后配置提供参考">
+<meta property="og:type" content="article">
+<meta property="og:title" content="虚拟机下caffe与faster-rcnn的only CPU安装">
+<meta property="og:url" content="http://yoursite.com/2017/08/02/虚拟机Ubuntu16.04环境下caffe与faster-rcnn的only CPU安装/index.html">
+<meta property="og:site_name" content="初来的xiaomu">
+<meta property="og:description" content="虚拟机ubuntu下caffe与faster-rcnn的only CPU安装教程.尝试记录安装过程，给以后配置提供参考">
+<meta property="og:updated_time" content="2017-08-02T12:02:46.044Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="虚拟机下caffe与faster-rcnn的only CPU安装">
+<meta name="twitter:description" content="虚拟机ubuntu下caffe与faster-rcnn的only CPU安装教程.尝试记录安装过程，给以后配置提供参考">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/02/虚拟机Ubuntu16.04环境下caffe与faster-rcnn的only CPU安装/"/>
+
+
+
+
+
+  <title>虚拟机下caffe与faster-rcnn的only CPU安装 | 初来的xiaomu</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-101949348-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?854ef28cf99a5184068077db630507bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">初来的xiaomu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/02/虚拟机Ubuntu16.04环境下caffe与faster-rcnn的only CPU安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="haha无知">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="初来的xiaomu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">虚拟机下caffe与faster-rcnn的only CPU安装</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-02T20:02:46+08:00">
+                2017-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/deep-learning/" itemprop="url" rel="index">
+                    <span itemprop="name">deep learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  虚拟机ubuntu下caffe与faster-rcnn的only CPU安装教程.尝试记录安装过程，给以后配置提供参考
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>虚拟机ubuntu下caffe与faster-rcnn的only CPU安装教程.尝试记录安装过程，给以后配置提供参考<br><a href="http://blog.csdn.net/zyb19931130/article/details/53842791" target="_blank" rel="external">主要参考1http://blog.csdn.net/zyb19931130/article/details/53842791</a><br><a href="http://blog.csdn.net/zoro_lov3/article/details/60581174" target="_blank" rel="external">主要参考2http://blog.csdn.net/zoro_lov3/article/details/60581174</a></p>
 <h1 id="提前认识"><a href="#提前认识" class="headerlink" title="提前认识"></a>提前认识</h1><h2 id="硬件环境"><a href="#硬件环境" class="headerlink" title="硬件环境"></a>硬件环境</h2><ul>
 <li>RAM :8G</li>
 <li>CPU: i5-3230M CPU @ 2.60GHz</li>
@@ -84,135 +430,416 @@
 <p>个人猜测是内存不足的原因，如有其他解决方案，烦请评论提醒。此处尝试更换测试数据集，如下<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~/py-faster-rcnn  </span><br><span class="line">sudo ./tools/demo.py --cpu  --net zf</span><br></pre></td></tr></table></figure></p>
 <p>稍等片刻既可</p>
 <h1 id="最后清理系统垃圾"><a href="#最后清理系统垃圾" class="headerlink" title="最后清理系统垃圾"></a>最后清理系统垃圾</h1><p>在安装过程中，可能产生系统垃圾或者不需要的软件，可以将其清理掉<br><a href="http://xixiu.github.io/2017/07/09/python3-selenium3%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%85%B6%E4%BB%96%E7%BB%86%E8%8A%82%E4%BC%98%E5%8C%96/" target="_blank" rel="external">点这里</a>参考这篇博客解决</p>
-]]></content>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/rcnn/" rel="tag"># rcnn</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/09/python3-selenium3环境配置及其他细节优化/" rel="next" title="selenium3环境配置及其他细节优化">
+                <i class="fa fa-chevron-left"></i> selenium3环境配置及其他细节优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
     
-    <summary type="html">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTI2MC81ODI4"></div>
     
-      虚拟机ubuntu下caffe与faster-rcnn的only CPU安装教程.尝试记录安装过程，给以后配置提供参考
-    
-    </summary>
-    
-      <category term="deep learning" scheme="http://yoursite.com/categories/deep-learning/"/>
-    
-    
-      <category term="python" scheme="http://yoursite.com/tags/python/"/>
-    
-      <category term="rcnn" scheme="http://yoursite.com/tags/rcnn/"/>
-    
-  </entry>
+  </div>
+
+
+        </div>
+        
+          
   
-  <entry>
-    <title>selenium3环境配置及其他细节优化</title>
-    <link href="http://yoursite.com/2017/07/09/python3-selenium3%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%85%B6%E4%BB%96%E7%BB%86%E8%8A%82%E4%BC%98%E5%8C%96/"/>
-    <id>http://yoursite.com/2017/07/09/python3-selenium3环境配置及其他细节优化/</id>
-    <published>2017-07-09T03:47:16.003Z</published>
-    <updated>2017-07-09T03:47:15.979Z</updated>
-    
-    <content type="html"><![CDATA[<p>之前在windows使用的firefox和chrome都是绿色版，配置的selenium3一直没有成功，于是尝试着在Linux下配置，成功配置了！</p>
-<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>OS: Linux ubuntu 16.04<br>python3:Python 3.5.2<br>Firefox默认安装</p>
-<h1 id="下载安装selenium3"><a href="#下载安装selenium3" class="headerlink" title="下载安装selenium3"></a>下载安装selenium3</h1><h2 id="确定操作系统架构"><a href="#确定操作系统架构" class="headerlink" title="确定操作系统架构"></a>确定操作系统架构</h2><p>   打开<code>终端</code>，输入<code>sudo uname -p</code></p>
-<ul>
-<li>若返回<code>i686</code>，证明为32为操作系统</li>
-<li>若返回<code>x86_64</code>,证明为64位操作系统</li>
-</ul>
-<h2 id="安装selenium3"><a href="#安装selenium3" class="headerlink" title="安装selenium3"></a>安装selenium3</h2><p>   对于同时安装python2与python3的环境而言，采用<br>   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip install selenium3</span><br></pre></td></tr></table></figure></p>
-<p>   若提示权限不够，加上sudo，即<br>   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo python3 -m pip install selenium3</span><br></pre></td></tr></table></figure></p>
-<h2 id="下载geckodriver"><a href="#下载geckodriver" class="headerlink" title="下载geckodriver"></a>下载geckodriver</h2><p>   若firefox版本过高，需要安装geckodriver<br>   这里是<a href="https://github.com/mozilla/geckodriver/releases" target="_blank" rel="external">下载地址</a><br>   选择对应操作系统版本的下载，然后<code>解压，并进入解压之后的目录</code>，接着<br>   安装geckodriver <code>记住要在解压之后的父目录操作</code><br>   cp geckodriver /usr/local/bin/</p>
-<h2 id="安装xvfb"><a href="#安装xvfb" class="headerlink" title="安装xvfb"></a>安装xvfb</h2><p>sudo apt-get install xvfb</p>
-<h2 id="安装pyvirtualdisplay"><a href="#安装pyvirtualdisplay" class="headerlink" title="安装pyvirtualdisplay"></a>安装pyvirtualdisplay</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip install pyvirtualdisplay</span><br></pre></td></tr></table></figure>
-<h1 id="测试selenium3"><a href="#测试selenium3" class="headerlink" title="测试selenium3"></a>测试selenium3</h1><p> 复制以下代码，保存为test.py<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">driver = webdriver.Firefox()</span><br><span class="line"></span><br><span class="line">driver.get(<span class="string">"http://www.baidu.com"</span>)</span><br><span class="line">driver.find_element_by_id(<span class="string">"kw"</span>).send_keys(<span class="string">"python开发"</span>)</span><br><span class="line">driver.find_element_by_id(<span class="string">"su"</span>).click()</span><br><span class="line"></span><br><span class="line">time.sleep(<span class="number">5</span>) <span class="comment">#等待5s，关闭浏览器。</span></span><br><span class="line"></span><br><span class="line">driver.quit()</span><br></pre></td></tr></table></figure></p>
-<p>然后运行</p>
-<p>若报错<code>selenium.common.exceptions.WebDriverException: Message: &#39;geckodriver&#39; executable may have wrong permissions</code></p>
-<ul>
-<li>定位到之前geckodriver的目录，设置权限为-rwxr-xr-x<br>即<code>sudo chmod 755 geckodriver</code></li>
-</ul>
-<h1 id="其他优化"><a href="#其他优化" class="headerlink" title="其他优化"></a>其他优化</h1><h2 id="PYPI-更换国内源"><a href="#PYPI-更换国内源" class="headerlink" title="PYPI 更换国内源"></a>PYPI 更换国内源</h2><p>在安装过程中，发现默认的安装源太慢，可以通过更换国内源来提速。<br>笔者这边较快的源是<a href="https://mirrors.aliyun.com/pypi/simple/" target="_blank" rel="external">阿里源</a>和<a href="https://pypi.tuna.tsinghua.edu.cn/simple" target="_blank" rel="external">清华源</a></p>
-<ul>
-<li>WINDOWS更换<br>找到python的安装目录，定位到\Lib\site-packages\pip\目录，然后打开cmdoptions.py，搜索index_url<br>得到如下<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">index_url = partial(</span><br><span class="line">    Option,</span><br><span class="line">    <span class="string">'-i'</span>, <span class="string">'--index-url'</span>, <span class="string">'--pypi-url'</span>,</span><br><span class="line">    dest=<span class="string">'index_url'</span>,</span><br><span class="line">    metavar=<span class="string">'URL'</span>,</span><br><span class="line">    default=PyPI.simple_url,</span><br><span class="line">    </span><br><span class="line">    help=<span class="string">"Base URL of Python Package Index (default %default). "</span></span><br><span class="line">         <span class="string">"This should point to a repository compliant with PEP 503 "</span></span><br><span class="line">         <span class="string">"(the simple repository API) or a local directory laid out "</span></span><br><span class="line">         <span class="string">"in the same format."</span>)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>修改为以下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">index_url = partial(</span><br><span class="line">    Option,</span><br><span class="line">    <span class="string">'-i'</span>, <span class="string">'--index-url'</span>, <span class="string">'--pypi-url'</span>,</span><br><span class="line">    dest=<span class="string">'index_url'</span>,</span><br><span class="line">    metavar=<span class="string">'URL'</span>,</span><br><span class="line">    <span class="comment">#default=PyPI.simple_url,</span></span><br><span class="line">    <span class="comment">#清华源</span></span><br><span class="line">    <span class="comment">#default='https://pypi.tuna.tsinghua.edu.cn/simple',</span></span><br><span class="line">    <span class="comment">#阿里源</span></span><br><span class="line">    default=<span class="string">'https://mirrors.aliyun.com/pypi/simple/'</span>,</span><br><span class="line">    </span><br><span class="line">    help=<span class="string">"Base URL of Python Package Index (default %default). "</span></span><br><span class="line">         <span class="string">"This should point to a repository compliant with PEP 503 "</span></span><br><span class="line">         <span class="string">"(the simple repository API) or a local directory laid out "</span></span><br><span class="line">         <span class="string">"in the same format."</span>)</span><br></pre></td></tr></table></figure></p>
-<p><code>清华源和阿里源可以自己选择，只需要将另外的注释掉就可以了</code></p>
-<ul>
-<li>Linux更换<br>在/.pip/下新建或修改pip.conf为<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">global</span>]</span><br><span class="line">index-url = https://mirrors.aliyun.com/pypi/simple/</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><code>注意</code><br>在添加源的时候，要使用加密链接，即https。若使用http，需要添加–trusted-host这一参数<br>以上方法是采用修改默认源的方法，还可以在安装的时候，指定安装源，使用pip -i参数.如<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo python3 -m pip install selenium3 -i https://mirrors.aliyun.com/pypi/simple/</span><br></pre></td></tr></table></figure></p>
-<p>同理，若使用http，需要添加–trusted-host这一参数</p>
-<h2 id="pip-升级所有package"><a href="#pip-升级所有package" class="headerlink" title="pip 升级所有package"></a>pip 升级所有package</h2><ul>
-<li><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip freeze --local | grep -v <span class="string">'^\-e'</span> | cut -d = -f <span class="number">1</span>  | xargs -n1 pip install -U</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><a href="https://stackoverflow.com/questions/2720014/upgrading-all-packages-with-pip" target="_blank" rel="external">参考来源</a></p>
-<ul>
-<li>采用pip 先列出outdate，再升级<br>即</li>
-</ul>
-<ol>
-<li><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip list --outdate --format=freeze &gt;&gt;update3.txt</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>update3.txt为输出outdate的文件</p>
-<ol>
-<li>打开update3.txt，去掉所有package后面的版本信息，也就是==以及以后的信息<br>如pyOpenSSL==0.15.1 修改为pyOpenSSL</li>
-<li><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip install -r update3.txt -U</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="ubuntu清理垃圾"><a href="#ubuntu清理垃圾" class="headerlink" title="ubuntu清理垃圾"></a>ubuntu清理垃圾</h2><ol>
-<li><p>清理apt载安装软件缓存文件<br>$sudo apt-get clean</p>
-</li>
-<li><p>清理期软件包<br>$sudo apt-get autoclean</p>
-</li>
-<li><p>自卸载没软件依赖关系软件<br>$sudo apt-get autoremove</p>
-</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      ubuntu下python3+selenium3环境配置，以及更换PYPI国内源、pip升级所有package、ubuntu清理垃圾
-    
-    </summary>
-    
-      <category term="python爬虫" scheme="http://yoursite.com/categories/python%E7%88%AC%E8%99%AB/"/>
-    
-    
-      <category term="python" scheme="http://yoursite.com/tags/python/"/>
-    
-      <category term="爬虫" scheme="http://yoursite.com/tags/%E7%88%AC%E8%99%AB/"/>
-    
-  </entry>
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="haha无知" />
+          <p class="site-author-name" itemprop="name">haha无知</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#提前认识"><span class="nav-number">1.</span> <span class="nav-text">提前认识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#硬件环境"><span class="nav-number">1.1.</span> <span class="nav-text">硬件环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软件环境（VM虚拟机中）"><span class="nav-number">1.2.</span> <span class="nav-text">软件环境（VM虚拟机中）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一般依赖项安装"><span class="nav-number">2.</span> <span class="nav-text">一般依赖项安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Opencv2-4-10安装"><span class="nav-number">3.</span> <span class="nav-text">Opencv2.4.10安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件下载"><span class="nav-number">3.1.</span> <span class="nav-text">文件下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Opencv依赖项"><span class="nav-number">3.2.</span> <span class="nav-text">安装Opencv依赖项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Opencv2-4-10"><span class="nav-number">3.3.</span> <span class="nav-text">安装Opencv2.4.10</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Opencv测试"><span class="nav-number">3.4.</span> <span class="nav-text">Opencv测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#切换到opencv下载解压后的文件夹目录下，然后进入sample-c-目录下，编译样例文件，具体如下："><span class="nav-number">3.4.1.</span> <span class="nav-text">切换到opencv下载解压后的文件夹目录下，然后进入sample/c/目录下，编译样例文件，具体如下：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#caffe安装"><span class="nav-number">4.</span> <span class="nav-text">caffe安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载caffe"><span class="nav-number">4.1.</span> <span class="nav-text">下载caffe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复制配置文件"><span class="nav-number">4.2.</span> <span class="nav-text">复制配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改配置文件"><span class="nav-number">4.3.</span> <span class="nav-text">修改配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译文件"><span class="nav-number">4.4.</span> <span class="nav-text">编译文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#尝试import-caffe"><span class="nav-number">4.5.</span> <span class="nav-text">尝试import caffe</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#py-faster-rcnn的CPU安装"><span class="nav-number">5.</span> <span class="nav-text">py-faster-rcnn的CPU安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#py-faster-rcnn下载"><span class="nav-number">5.1.</span> <span class="nav-text">py-faster-rcnn下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装安装cython和easydict"><span class="nav-number">5.2.</span> <span class="nav-text">安装安装cython和easydict</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译cython并做如下修改"><span class="nav-number">5.3.</span> <span class="nav-text">编译cython并做如下修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改并编译caffe"><span class="nav-number">5.4.</span> <span class="nav-text">修改并编译caffe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载测试文件"><span class="nav-number">5.5.</span> <span class="nav-text">下载测试文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改部分文件"><span class="nav-number">5.6.</span> <span class="nav-text">修改部分文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行demo"><span class="nav-number">5.7.</span> <span class="nav-text">运行demo</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后清理系统垃圾"><span class="nav-number">6.</span> <span class="nav-text">最后清理系统垃圾</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
   
-  <entry>
-    <title>毕业啦</title>
-    <link href="http://yoursite.com/2017/07/04/%E9%87%8D%E6%9B%B4/"/>
-    <id>http://yoursite.com/2017/07/04/重更/</id>
-    <published>2017-07-04T02:45:55.206Z</published>
-    <updated>2017-07-04T02:45:55.202Z</updated>
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">haha无知</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
     
-    <content type="html"><![CDATA[<h1 id="临近毕业，本站重新开始更新。"><a href="#临近毕业，本站重新开始更新。" class="headerlink" title="临近毕业，本站重新开始更新。"></a>临近毕业，本站重新开始更新。</h1><h2 id="毕业了"><a href="#毕业了" class="headerlink" title="毕业了"></a>毕业了</h2><p>python爬虫也很长一段时间没有进一步学习了，最近准备重新学习，期待自己以后可以坚持学习，并留下相关的脚印。<code>请大神手下留情</code> </p>
-<p><code>计划学习以下内容</code></p>
-<ol>
-<li>python3爬虫及相关</li>
-<li>图像处理</li>
-<li>机器学习</li>
-</ol>
-<h2 id="反馈"><a href="#反馈" class="headerlink" title="反馈"></a>反馈</h2><p>若有问题，请直接留言，我会尽快回复<br><code>不知道会不会有读者,,,</code></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>本页面在搭建过程中主要参考以下页面</p>
-<ol>
-<li><a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="external">Hexo官方文档</a></li>
-<li><a href="http://lss53.github.io/" target="_blank" rel="external">lss53</a></li>
-</ol>
-]]></content>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
     
-    <summary type="html">
-    
-      临近毕业，本站重新开始更新，期待自己可以坚持
-    
-    </summary>
-    
-      <category term="说明" scheme="http://yoursite.com/categories/%E8%AF%B4%E6%98%8E/"/>
-    
-    
-  </entry>
+
+  </div>
+
   
-</feed>
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
