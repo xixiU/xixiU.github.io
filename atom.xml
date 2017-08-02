@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-08-02T12:20:16.388Z</updated>
+  <updated>2017-08-02T12:21:49.784Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,8 +19,8 @@
     <title>虚拟机下caffe与faster-rcnn的only CPU安装</title>
     <link href="http://yoursite.com/2017/08/02/%E8%99%9A%E6%8B%9F%E6%9C%BAUbuntu16.04%E7%8E%AF%E5%A2%83%E4%B8%8Bcaffe%E4%B8%8Efaster-rcnn%E7%9A%84only%20CPU%E5%AE%89%E8%A3%85/"/>
     <id>http://yoursite.com/2017/08/02/虚拟机Ubuntu16.04环境下caffe与faster-rcnn的only CPU安装/</id>
-    <published>2017-08-02T12:20:16.396Z</published>
-    <updated>2017-08-02T12:20:16.388Z</updated>
+    <published>2017-08-02T12:21:49.796Z</published>
+    <updated>2017-08-02T12:21:49.784Z</updated>
     
     <content type="html"><![CDATA[<p>虚拟机ubuntu下caffe与faster-rcnn的only CPU安装教程.尝试记录安装过程，给以后配置提供参考<br><a href="http://blog.csdn.net/zyb19931130/article/details/53842791" target="_blank" rel="external">主要参考1http://blog.csdn.net/zyb19931130/article/details/53842791</a><br><a href="http://blog.csdn.net/zoro_lov3/article/details/60581174" target="_blank" rel="external">主要参考2http://blog.csdn.net/zoro_lov3/article/details/60581174</a></p>
 <h1 id="提前认识"><a href="#提前认识" class="headerlink" title="提前认识"></a>提前认识</h1><h2 id="硬件环境"><a href="#硬件环境" class="headerlink" title="硬件环境"></a>硬件环境</h2><ul>
@@ -36,14 +36,11 @@
 <h2 id="安装Opencv依赖项"><a href="#安装Opencv依赖项" class="headerlink" title="安装Opencv依赖项"></a>安装Opencv依赖项</h2><p>文件dependencies.sh在Ubuntu目录<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd Ubuntu</span><br><span class="line">sudo ./dependencies.sh</span><br></pre></td></tr></table></figure></p>
 <h2 id="安装Opencv2-4-10"><a href="#安装Opencv2-4-10" class="headerlink" title="安装Opencv2.4.10"></a>安装Opencv2.4.10</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd <span class="number">2.4</span></span><br><span class="line">sudo chmod +x *.sh </span><br><span class="line">sudo sh ./opencv2_4_10.sh</span><br></pre></td></tr></table></figure>
 <p>Opencv安装比较久，安装完成之后会显示<code>OpenCV 2.4.10 ready to be used</code></p>
-<h2 id="Opencv测试"><a href="#Opencv测试" class="headerlink" title="Opencv测试"></a>Opencv测试</h2><ol>
-<li><p>切换到opencv下载解压后的文件夹目录下，然后进入sample/c/目录下，编译样例文件，具体如下：<br> cd ~/下载/opencv-2.4.10/samples/c/<br> 如下载在Ubuntu/2.4/Opencv中，则输入</p>
- <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~/Install-Opencv/Ubuntu/<span class="number">2.4</span>/Opencv/opencv<span class="number">-2.4</span><span class="number">.10</span>/samples/c/</span><br><span class="line">./build_all.sh</span><br></pre></td></tr></table></figure>
-<p> 执行完成后，会生成对应的可执行文件</p>
-</li>
-<li>运行其中一个样例,如<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./find_ob</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+<h2 id="Opencv测试"><a href="#Opencv测试" class="headerlink" title="Opencv测试"></a>Opencv测试</h2><h3 id="切换到opencv下载解压后的文件夹目录下，然后进入sample-c-目录下，编译样例文件，具体如下："><a href="#切换到opencv下载解压后的文件夹目录下，然后进入sample-c-目录下，编译样例文件，具体如下：" class="headerlink" title="切换到opencv下载解压后的文件夹目录下，然后进入sample/c/目录下，编译样例文件，具体如下："></a>切换到opencv下载解压后的文件夹目录下，然后进入sample/c/目录下，编译样例文件，具体如下：</h3><p>cd ~/下载/opencv-2.4.10/samples/c/</p>
+<p>如下载在Ubuntu/2.4/Opencv中，则输入</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">cd ~/Install-Opencv/Ubuntu/<span class="number">2.4</span>/Opencv/opencv<span class="number">-2.4</span><span class="number">.10</span>/samples/c/</span><br><span class="line"></span><br><span class="line">./build_all.sh</span><br></pre></td></tr></table></figure>
+<p>执行完成后，会生成对应的可执行文件</p>
+<h3 id="运行其中一个样例-如"><a href="#运行其中一个样例-如" class="headerlink" title="运行其中一个样例,如"></a>运行其中一个样例,如</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./find_ob</span><br></pre></td></tr></table></figure>
 <p>显示图像则为正确安装</p>
 <h1 id="caffe安装"><a href="#caffe安装" class="headerlink" title="caffe安装"></a>caffe安装</h1><h2 id="下载caffe"><a href="#下载caffe" class="headerlink" title="下载caffe"></a>下载caffe</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~ </span><br><span class="line">git clone --recursive https://github.com/BVLC/caffe.git</span><br></pre></td></tr></table></figure>
 <h2 id="复制配置文件"><a href="#复制配置文件" class="headerlink" title="复制配置文件"></a>复制配置文件</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd caffe</span><br><span class="line">cp Makefile.config.example Makefile.config</span><br></pre></td></tr></table></figure>
