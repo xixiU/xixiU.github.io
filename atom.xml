@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-08-02T12:12:53.521Z</updated>
+  <updated>2017-08-02T12:14:23.689Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,8 +19,8 @@
     <title>虚拟机下caffe与faster-rcnn的only CPU安装</title>
     <link href="http://yoursite.com/2017/08/02/%E8%99%9A%E6%8B%9F%E6%9C%BAUbuntu16.04%E7%8E%AF%E5%A2%83%E4%B8%8Bcaffe%E4%B8%8Efaster-rcnn%E7%9A%84only%20CPU%E5%AE%89%E8%A3%85/"/>
     <id>http://yoursite.com/2017/08/02/虚拟机Ubuntu16.04环境下caffe与faster-rcnn的only CPU安装/</id>
-    <published>2017-08-02T12:12:53.545Z</published>
-    <updated>2017-08-02T12:12:53.521Z</updated>
+    <published>2017-08-02T12:14:23.693Z</published>
+    <updated>2017-08-02T12:14:23.689Z</updated>
     
     <content type="html"><![CDATA[<p>虚拟机ubuntu下caffe与faster-rcnn的only CPU安装教程.尝试记录安装过程，给以后配置提供参考<br><a href="http://blog.csdn.net/zyb19931130/article/details/53842791" target="_blank" rel="external">主要参考1http://blog.csdn.net/zyb19931130/article/details/53842791</a><br><a href="http://blog.csdn.net/zoro_lov3/article/details/60581174" target="_blank" rel="external">主要参考2http://blog.csdn.net/zoro_lov3/article/details/60581174</a></p>
 <h1 id="提前认识"><a href="#提前认识" class="headerlink" title="提前认识"></a>提前认识</h1><h2 id="硬件环境"><a href="#硬件环境" class="headerlink" title="硬件环境"></a>硬件环境</h2><ul>
@@ -63,8 +63,12 @@
 <h2 id="修改并编译caffe"><a href="#修改并编译caffe" class="headerlink" title="修改并编译caffe"></a>修改并编译caffe</h2><ol>
 <li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">直接到之前的caffe目录，找到Makefile.config，然后复制粘贴到/py-faster-rcnn/caffe-fast-rcnn/</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>打开CMakeLists.txt，做如下修改<br>‘’’<br>caffe_option(CPU_ONLY  “Build Caffe without CUDA support” ON) # TODO: rename to USE_CUDA<br>‘’’<br>（OFF改成ON）</p>
+<li><p>打开CMakeLists.txt，做如下修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">caffe_option(CPU_ONLY  &quot;Build Caffe without CUDA support&quot; ON) # TODO: rename to USE_CUDA</span><br></pre></td></tr></table></figure>
 </li>
+</ol>
+<p>（OFF改成ON）</p>
+<ol>
 <li>编译cafe<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~/py-faster-rcnn/caffe-fast-rcnn  </span><br><span class="line">make -j8&amp;&amp; make pycaffe</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
