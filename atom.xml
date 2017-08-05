@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-08-02T12:26:31.563Z</updated>
+  <updated>2017-08-05T14:52:15.943Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,59 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MySQL进阶学习笔记</title>
+    <link href="http://yoursite.com/2017/08/05/MySQL%E8%BF%9B%E9%98%B6/"/>
+    <id>http://yoursite.com/2017/08/05/MySQL进阶/</id>
+    <published>2017-08-05T14:52:15.951Z</published>
+    <updated>2017-08-05T14:52:15.943Z</updated>
+    
+    <content type="html"><![CDATA[<p>之前只是简单得学习了MySQL的增删查改等，在项目中深感知识不够，于是学习了一下MySQL触发器，存储过程，权限管理等知识。</p>
+<h1 id="触发器"><a href="#触发器" class="headerlink" title="触发器"></a>触发器</h1><h2 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h2><p>触发器就是对有关系的数据表进行操作的一种功能，当满足触发条件，则执行指定的事件。比如商品的库存表和用户的订单表之间，若用户下单，用户订单表会相应增加，而库存表则会相应减少，触发器就可以完成这样的操作。<br>如果不实用触发器，则需要在事件之后，对有关联的数据表手动update。如上订单表与库存表，用户下单后，需要手动更新库存表。</p>
+<h2 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h2><p>触发器的组成包括触发对象(谁)，触发事件(做了什么事)，触发事件(时间)，触发之后执行的事件(因前面的做了什么事，需要做什么)</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">trigger</span> &lt;触发器名称&gt;  <span class="comment">--触发器`必须`有名字，最多64个字符</span></span><br><span class="line">&#123; <span class="keyword">before</span> | <span class="keyword">after</span> &#125;  <span class="comment">--触发事件，决定满足条件之后的执行语句，在该条件之前还是之后执行</span></span><br><span class="line">&#123; <span class="keyword">insert</span> | <span class="keyword">update</span> | <span class="keyword">delete</span> &#125;  <span class="comment">--指定触发事件。</span></span><br><span class="line"><span class="keyword">on</span> &lt;表名称&gt;  <span class="comment">--触发器是属于某一个表的:当在这个表上执行插入、 更新或删除操作的时候就导致触发器的激活. 我们不能给同一张表的同一个事件安排两个触发器。</span></span><br><span class="line"><span class="keyword">for</span> <span class="keyword">each</span> <span class="keyword">row</span>  <span class="comment">--触发器的执行间隔：FOR EACH ROW子句通知触发器 每隔一行执行一次动作，而不是对整个表执行一次。</span></span><br><span class="line">&lt;满足条件之后，需要执行的<span class="keyword">SQL</span>语句&gt;  <span class="comment">--触发器包含所要触发的SQL语句，可以是复合语句。</span></span><br></pre></td></tr></table></figure>
+<p>例如<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">delimiter $ <span class="comment">--修改结束符，以免和SQL语句结束符混淆</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">trigger</span> t1</span><br><span class="line"><span class="keyword">before</span></span><br><span class="line"><span class="keyword">update</span></span><br><span class="line"><span class="keyword">on</span> orde</span><br><span class="line"><span class="keyword">for</span> <span class="keyword">each</span> <span class="keyword">row</span></span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line"><span class="keyword">update</span> goods <span class="keyword">set</span> <span class="keyword">num</span> = <span class="keyword">num</span>+old.much-new.much <span class="keyword">where</span> gid=old.gid;</span><br><span class="line"><span class="keyword">end</span>$</span><br><span class="line">delimiter ;</span><br></pre></td></tr></table></figure></p>
+<p><code>注意：不能同时在一个表上建立2个相同类型的触发器</code></p>
+<h2 id="new-amp-old"><a href="#new-amp-old" class="headerlink" title="new &amp; old"></a>new &amp; old</h2><p>触发器语句中会涉及到参数传递<br>例如触发条件是delete，则在语句之后之后，会有一条语句被删除，因此若在语句之后执行触发事件，并且需要引用之前的数据，可以采用old这个关键词。<br>又如触发条件是insert，则在语句执行之后，会有一条语句被添加，因此若在语句之后执行触发事件，并且需要引用之前的数据，可以采用new这个关键词。<br>对于update而言，一般new 与old都同时存在。<br><code>注意触发事件before与after的选择：不能在触发之后对之前的数据进行更新</code></p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>因为触发器是需要指定表的，因此需要指定数据库。以库存表与用户订单表为例</p>
+<ol>
+<li><p>新建数据库与表<br>新建表并且随便指定一部分数据 goods为库存表(gid库存标号,name名称,num数量)，orde为订单表(oid订单编号,gid库存编号,much购买商品数目)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> learntrigger;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`goods`</span> (</span><br><span class="line">  <span class="string">`gid`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">  <span class="string">`name`</span> <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">  <span class="string">`num`</span> <span class="built_in">smallint</span>(<span class="number">6</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span></span><br><span class="line">) ;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`orde`</span> (</span><br><span class="line">  <span class="string">`oid`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">  <span class="string">`gid`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">  <span class="string">`much`</span> <span class="built_in">smallint</span>(<span class="number">6</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建一个触发器<br>触发器完成如下操作：用户下单之后，库存相应减少.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">delimiter $ </span><br><span class="line"><span class="keyword">create</span> <span class="keyword">trigger</span> t1</span><br><span class="line"><span class="keyword">before</span></span><br><span class="line"><span class="keyword">insert</span></span><br><span class="line"><span class="keyword">on</span> orde</span><br><span class="line"><span class="keyword">for</span> <span class="keyword">each</span> <span class="keyword">row</span></span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line"><span class="keyword">update</span> goods <span class="keyword">set</span> <span class="keyword">num</span>:=<span class="keyword">num</span>-new.much <span class="keyword">where</span> gid=new.gid;</span><br><span class="line"><span class="keyword">end</span>$</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>完善上述触发器：若用户下单数目，超过库存，则将用户下单的数量自动设置为库存数，以免出现库存为负数的情形<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">delimiter $ </span><br><span class="line">create trigger t1</span><br><span class="line">before</span><br><span class="line">insert</span><br><span class="line">on orde</span><br><span class="line">for each row</span><br><span class="line">begin</span><br><span class="line">declare</span><br><span class="line">temp_num int;</span><br><span class="line">select num into temp_num from goods where gid = new.gid;</span><br><span class="line">if new.much &gt; temp_num then</span><br><span class="line">set new.much=temp_num;</span><br><span class="line">end if;</span><br><span class="line">update goods set num:=num-new.much where gid=new.gid;</span><br><span class="line">end$</span><br></pre></td></tr></table></figure></p>
+<p><code>这里必须选择before，若为update因为insert之后数据已经生成，这个时候确再去修改insert的值，存在逻辑错误。</code></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ol>
+<li><p>查看触发器 </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">triggers</span> [<span class="keyword">FROM</span> database_name];</span><br></pre></td></tr></table></figure>
+<p> 若有先使用<code>use database_name;</code>则可以不添加<code>[FROM database_name]</code><br> <code>添加\G 参数可以以列的形式显示</code>，如<code>show triggers \G;</code></p>
+</li>
+<li>删除触发器<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">trigger</span> [<span class="keyword">IF</span> <span class="keyword">EXISTS</span>] [database_name.]trigger_name</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="存储过程与游标"><a href="#存储过程与游标" class="headerlink" title="存储过程与游标"></a>存储过程与游标</h1><h2 id="与触发器比较"><a href="#与触发器比较" class="headerlink" title="与触发器比较"></a>与触发器比较</h2><p>存储过程与触发器类似，但是存储过程可以主动调用。参数传递更加灵活，功能增加强大。</p>
+<p>##组成##<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span>  procedure_name([paraname paratype])</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">&lt;<span class="keyword">sql</span>语句&gt;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<p>调用<br><code>call procedure_name([paraname paratype]);</code><br>paraname 为用户指定的参数名称，paratype可以从in out inout选择<br>in表示输入型参数，out表示输出型参数，inout表示可进可出</p>
+<h2 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h2><p>以下创建一个输入矩形的宽高，输出矩阵面积，并且判断矩形的宽与高的关系<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">delimiter $</span><br><span class="line">create procedure p100(width int,height int)</span><br><span class="line">begin</span><br><span class="line">select concat('面积',width*height) as area;</span><br><span class="line">if width&gt;height then</span><br><span class="line">select "宽大于高";</span><br><span class="line">elseif width &lt; height then</span><br><span class="line">select "高大于宽";</span><br><span class="line">else </span><br><span class="line">select "正方形";</span><br><span class="line">end if;</span><br><span class="line">end$</span><br></pre></td></tr></table></figure></p>
+<p>调用<br>call p1(100,200)$</p>
+]]></content>
+    
+    <summary type="html">
+    
+      继续学习MySQL的触发器，存储过程，权限管理，感觉对MySQL的认知似乎又深入了一些
+    
+    </summary>
+    
+      <category term="Mysql" scheme="http://yoursite.com/categories/Mysql/"/>
+    
+    
+      <category term="Mysql" scheme="http://yoursite.com/tags/Mysql/"/>
+    
+  </entry>
   
   <entry>
     <title>虚拟机下caffe与faster-rcnn的only CPU安装</title>
