@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-08-05T15:04:14.544Z</updated>
+  <updated>2017-08-06T15:05:07.198Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,10 +17,10 @@
   
   <entry>
     <title>MySQL进阶学习笔记</title>
-    <link href="http://yoursite.com/2017/08/05/MySQL%E8%BF%9B%E9%98%B6/"/>
-    <id>http://yoursite.com/2017/08/05/MySQL进阶/</id>
-    <published>2017-08-05T15:04:14.548Z</published>
-    <updated>2017-08-05T15:04:14.544Z</updated>
+    <link href="http://yoursite.com/2017/08/06/MySQL%E8%BF%9B%E9%98%B6/"/>
+    <id>http://yoursite.com/2017/08/06/MySQL进阶/</id>
+    <published>2017-08-06T15:05:18.228Z</published>
+    <updated>2017-08-06T15:05:07.198Z</updated>
     
     <content type="html"><![CDATA[<p>之前只是简单得学习了MySQL的增删查改等，在项目中深感知识不够，于是学习了一下MySQL触发器，存储过程，权限管理等知识。</p>
 <h1 id="触发器"><a href="#触发器" class="headerlink" title="触发器"></a>触发器</h1><h2 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h2><p>触发器就是对有关系的数据表进行操作的一种功能，当满足触发条件，则执行指定的事件。比如商品的库存表和用户的订单表之间，若用户下单，用户订单表会相应增加，而库存表则会相应减少，触发器就可以完成这样的操作。<br>如果不实用触发器，则需要在事件之后，对有关联的数据表手动update。如上订单表与库存表，用户下单后，需要手动更新库存表。</p>
@@ -53,6 +53,145 @@
 <p>调用<br><code>call procedure_name([paraname paratype]);</code><br>paraname 为用户指定的参数名称，paratype可以从in out inout选择<br>in表示输入型参数，out表示输出型参数，inout表示可进可出</p>
 <h2 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h2><p>以下创建一个输入矩形的宽高，输出矩阵面积，并且判断矩形的宽与高的关系<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">delimiter $</span><br><span class="line">create procedure p100(width int,height int)</span><br><span class="line">begin</span><br><span class="line">select concat('面积',width*height) as area;</span><br><span class="line">if width&gt;height then</span><br><span class="line">select "宽大于高";</span><br><span class="line">elseif width &lt; height then</span><br><span class="line">select "高大于宽";</span><br><span class="line">else </span><br><span class="line">select "正方形";</span><br><span class="line">end if;</span><br><span class="line">end$</span><br></pre></td></tr></table></figure></p>
 <p>调用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">call p1(100,200)$</span><br></pre></td></tr></table></figure></p>
+<h1 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h1><p>参考文献：</p>
+<ul>
+<li><a href="http://docs.oracle.com/cd/E19078-01/mysql/mysql-refman-5.1/" target="_blank" rel="external">英文参考文献</a></li>
+<li><a href="http://img.jb51.net/shouce/mysql/index.html" target="_blank" rel="external">中文参考文献</a><br>MySQL提供的权限管理，分为连接的权利与执行的权利.<h2 id="连接的权利"><a href="#连接的权利" class="headerlink" title="连接的权利"></a>连接的权利</h2>连接的权利指的是：是否有权限连接MySQL,该部分又MYSQL数据库下面的mysql数据库中的user表段控制。<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p</span><br><span class="line"><span class="keyword">show</span> <span class="keyword">databases</span>; <span class="comment">/*此处可以看到有一个mysql数据库*/</span></span><br><span class="line"><span class="keyword">use</span> mysql;</span><br><span class="line"><span class="keyword">select</span> host ,<span class="keyword">user</span>,<span class="keyword">password</span> <span class="keyword">from</span> <span class="keyword">user</span>;<span class="comment">/*查看可以有效连接的用户信息*/</span></span><br><span class="line"><span class="comment">/*host从哪里来、用户名username、密码possword*/</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>从上面可以看到对权限的管理主要从user,password,host三个参数来实现控制</p>
+<h2 id="执行的权利"><a href="#执行的权利" class="headerlink" title="执行的权利"></a>执行的权利</h2><p>连接上数据库之后，执行SQL语句时还需要进行权限检查。<br>包括执行权限(增删查改)，授予的权限(全局层级,数据库层级,表层级,列层级,子程序层级)的检查</p>
+<h2 id="新建具有特定权限的用户"><a href="#新建具有特定权限的用户" class="headerlink" title="新建具有特定权限的用户"></a>新建具有特定权限的用户</h2><p>grand [权限1,选项2,权限3……] on <em>.</em> to username@’set_host’ identified by ‘set_password’；/<em> 授予权限</em>/<br>recoke [权限1,选项2,权限3……] on <em>.</em> to username@’set_host’ identified by ‘set_password’；/<em> 取消权限</em>/<br>其中<code>*.*</code>对应上面授予的权限层级的不同有不同的写法。</p>
+<ul>
+<li>全局层级<br>全局权限适用于一个给定服务器中的所有数据库。这些权限存储在mysql.user表中。GRANT ALL ON <em>.</em>和REVOKE ALL ON <em>.</em>只授予和撤销全局权限。</li>
+<li>数据库层级<br>数据库权限适用于一个给定数据库中的所有目标。这些权限存储在mysql.db和mysql.host表中。GRANT ALL ON db_name.<em>和REVOKE ALL ON db_name.</em>只授予和撤销数据库权限。</li>
+<li>表层级<br>表权限适用于一个给定表中的所有列。这些权限存储在mysql.talbes_priv表中。GRANT ALL ON db_name.tbl_name和REVOKE ALL ON db_name.tbl_name只授予和撤销表权限。</li>
+<li>列层级<br>列权限适用于一个给定表中的单一列。这些权限存储在mysql.columns_priv表中。当使用REVOKE时，您必须指定与被授权列相同的列。</li>
+<li>子程序层级<br>CREATE ROUTINE, ALTER ROUTINE, EXECUTE和GRANT权限适用于已存储的子程序。这些权限可以被授予为全局层级和数据库层级。而且，除了CREATE ROUTINE外，这些权限可以被授予为子程序层级，并存储在mysql.procs_priv表中。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>权限</th>
+<th>意义 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ALL [PRIVILEGES]</td>
+<td>设置除GRANT OPTION之外的所有简单权限</td>
+</tr>
+<tr>
+<td>ALTER</td>
+<td>允许使用ALTER TABLE</td>
+</tr>
+<tr>
+<td>ALTER ROUTINE</td>
+<td>更改或取消已存储的子程序</td>
+</tr>
+<tr>
+<td>CREATE</td>
+<td>允许使用CREATE TABLE</td>
+</tr>
+<tr>
+<td>CREATE ROUTINE</td>
+<td>创建已存储的子程序</td>
+</tr>
+<tr>
+<td>CREATE TEMPORARY TABLES</td>
+<td>允许使用CREATE TEMPORARY TABLE</td>
+</tr>
+<tr>
+<td>CREATE USER</td>
+<td>允许使用CREATE USER, DROP USER, RENAME USER和REVOKE ALL PRIVILEGES。</td>
+</tr>
+<tr>
+<td>CREATE VIEW</td>
+<td>允许使用CREATE VIEW</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>允许使用DELETE</td>
+</tr>
+<tr>
+<td>DROP</td>
+<td>允许使用DROP TABLE</td>
+</tr>
+<tr>
+<td>EXECUTE</td>
+<td>允许用户运行已存储的子程序</td>
+</tr>
+<tr>
+<td>FILE</td>
+<td>允许使用SELECT…INTO OUTFILE和LOAD DATA INFILE</td>
+</tr>
+<tr>
+<td>INDEX</td>
+<td>允许使用CREATE INDEX和DROP INDEX</td>
+</tr>
+<tr>
+<td>INSERT</td>
+<td>允许使用INSERT</td>
+</tr>
+<tr>
+<td>LOCK TABLES</td>
+<td>允许对您拥有SELECT权限的表使用LOCK TABLES</td>
+</tr>
+<tr>
+<td>PROCESS</td>
+<td>允许使用SHOW FULL PROCESSLIST</td>
+</tr>
+<tr>
+<td>REFERENCES</td>
+<td>未被实施</td>
+</tr>
+<tr>
+<td>RELOAD</td>
+<td>允许使用FLUSH</td>
+</tr>
+<tr>
+<td>REPLICATION CLIENT</td>
+<td>允许用户询问从属服务器或主服务器的地址</td>
+</tr>
+<tr>
+<td>REPLICATION SLAVE</td>
+<td>用于复制型从属服务器（从主服务器中读取二进制日志事件）</td>
+</tr>
+<tr>
+<td>SELECT</td>
+<td>允许使用SELECT</td>
+</tr>
+<tr>
+<td>SHOW DATABASES</td>
+<td>SHOW DATABASES显示所有数据库</td>
+</tr>
+<tr>
+<td>SHOW VIEW</td>
+<td>允许使用SHOW CREATE VIEW</td>
+</tr>
+<tr>
+<td>SHUTDOWN</td>
+<td>允许使用mysqladmin shutdown</td>
+</tr>
+<tr>
+<td>SUPER</td>
+<td>允许使用CHANGE MASTER, KILL, PURGE MASTER LOGS和SET GLOBAL语句，mysqladmin debug命令；允许您连接（一次），即使已达到max_connections。</td>
+</tr>
+<tr>
+<td>UPDATE</td>
+<td>允许使用UPDATE</td>
+</tr>
+<tr>
+<td>USAGE</td>
+<td>“无权限”的同义词</td>
+</tr>
+<tr>
+<td>GRANT OPTION</td>
+<td>允许授予权限</td>
+</tr>
+</tbody>
+</table>
+<p><code>注意设置之后需要冲刷权限flush privileges;</code></p>
 ]]></content>
     
     <summary type="html">
