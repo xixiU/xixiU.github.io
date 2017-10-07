@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-10-07T04:55:27.169Z</updated>
+  <updated>2017-10-07T04:57:37.360Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/10/04/qnetwork/"/>
     <id>http://yoursite.com/2017/10/04/qnetwork/</id>
     <published>2017-10-03T16:00:00.000Z</published>
-    <updated>2017-10-07T04:55:27.169Z</updated>
+    <updated>2017-10-07T04:57:37.360Z</updated>
     
     <content type="html"><![CDATA[<p>学习机器学习算法，手上没有数据，于是决定自己动手，爬取QQ空间数据<br>本文参考文献</p>
 <ol>
@@ -31,7 +31,7 @@
 <h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><p>说明:为防止腾讯检测，随机丢掉一部分数据。<br>两代运行之后，大概有400w左右数据(Aliyun运行了大概8个小时)<br><img src="mysql.jpg" alt="mysql info"></p>
 <h2 id="好友网络"><a href="#好友网络" class="headerlink" title="好友网络"></a>好友网络</h2><p>整张网络结构：过大，根本看不出什么<br><img src="allnetwork.png" alt="整张网络"><br>以某一好友为例，为保护隐私，数据标签不显示<br><img src="network_1.jpeg" alt="hops=1"><br><img src="network_2.jpg" alt="hops=2"></p>
 <p><code>hops表示最多经过几个节点(人)</code></p>
-<h2 id="发说说时间"><a href="#发说说时间" class="headerlink" title="发说说时间"></a>发说说时间</h2><p>随机抽取10w数据，统计。可以从下面（特别是小时统计）看出，在网络中的作息规律。<br>随机抽取100w数据，然后从中选出17年的80223条数据，单独分析每个月的情况<br>!(2017 1-9)[/images/qnetwork/2017month_count.jpeg]<br><code>10w数据随机选择，然后17年只有1-9月的数据</code></p>
+<h2 id="发说说时间"><a href="#发说说时间" class="headerlink" title="发说说时间"></a>发说说时间</h2><p>随机抽取10w数据，统计。可以从下面（特别是小时统计）看出，在网络中的作息规律。<br>随机抽取100w数据，然后从中选出17年的80223条数据，单独分析每个月的情况<br>!(2017 1-9)[2017month_count.jpeg]<br><code>10w数据随机选择，然后17年只有1-9月的数据</code></p>
 <h3 id="按年统计"><a href="#按年统计" class="headerlink" title="按年统计"></a>按年统计</h3><p><img src="year_count.jpeg" alt="年分布图"></p>
 <h3 id="按月统计"><a href="#按月统计" class="headerlink" title="按月统计"></a>按月统计</h3><p><img src="month_count.jpeg" alt="月分布图"><br>基本上平均</p>
 <h3 id="按天统计"><a href="#按天统计" class="headerlink" title="按天统计"></a>按天统计</h3><p><img src="Day_count.jpeg" alt="天分布图"></p>
