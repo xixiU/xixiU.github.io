@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-10-07T05:06:53.720Z</updated>
+  <updated>2017-10-07T05:09:14.314Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/10/04/qnetwork/"/>
     <id>http://yoursite.com/2017/10/04/qnetwork/</id>
     <published>2017-10-03T16:00:00.000Z</published>
-    <updated>2017-10-07T05:06:53.720Z</updated>
+    <updated>2017-10-07T05:09:14.314Z</updated>
     
     <content type="html"><![CDATA[<p>学习机器学习算法，手上没有数据，于是决定自己动手，爬取QQ空间数据<br>本文参考文献</p>
 <ol>
@@ -45,7 +45,7 @@
     
     <summary type="html">
     
-      python获取数据，好友网络部分采用python networkx分析。附python登陆QQ空间源码以及networkx使用函数。
+      selenium+python+mysql  QQ空间好友网络。python获取数据，好友网络部分采用python networkx分析。附python登陆QQ空间源码以及networkx使用函数。
     
     </summary>
     
