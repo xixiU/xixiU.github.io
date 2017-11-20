@@ -94,7 +94,7 @@ class Iccv_rawler(object):
     # 下载
     def __downloadPdf(self):
         i=1
-        for x in self.__paperlist[1:10]:
+        for x in self.__paperlist:
             one_thr = threading.Thread(target=self.__downloadPdf_single, args=[x,i])
             one_thr.start()
             one_thr.join()
