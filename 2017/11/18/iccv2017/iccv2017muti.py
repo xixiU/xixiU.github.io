@@ -17,19 +17,23 @@ import threading
 
 class Iccv_rawler(object):
     # 睡眠时长
-    __time_sleep = 0.1
-    #默认下载文件夹
-    __mydir ='iccv2017'
+    __time_sleep = 0.5
+    
     __i_headers={'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.101 Safari/537.36',}
     __proxy=False
-    __url='http://openaccess.thecvf.com/ICCV2017.py'
+    __url='http://openaccess.thecvf.com/CVPR2018.py'
     __paperlist=[]
     __biblist=[]
     original_fileneme='bibref.txt'
+    
     # t 下载图片时间间隔
-    def __init__(self, t=0.1,mydir='iccv2017'):
+    def __init__(self, t=0.1,periodical='CVPR',year=2018):
         self.time_sleep = t
-        self.__mydir='./' + mydir + '/'
+        
+        self.periodical = periodical.lower()
+        self.year = year
+        #默认下载文件夹
+        self.__mydir='./' + self.periodical.upper()+str(self.year) + '/'
 
     def pageget(self):
         print('begin  to getpage')
@@ -71,7 +75,7 @@ class Iccv_rawler(object):
                 os.makedirs(self.__mydir )
             lengthpap=len(self.__paperlist)
             print('TIme:%s begin to download the %d -th ,left %d to download .\nThe name of the pdf is %s \n'%(time.ctime(time.time()),i,lengthpap-i,name(single_info)))
-            urllib.request.urlretrieve('http://openaccess.thecvf.com/content_ICCV_2017/papers'+single_info ,self.__mydir + name(single_info))
+            urllib.request.urlretrieve('http://openaccess.thecvf.com/content_%s_%d/papers'%(self.periodical,self.year)+single_info ,self.__mydir + name(single_info))
         except Exception as ex:
             template = "An exception of type {0} occurred. Arguments:\n{1!r}"
             message = template.format(type(ex).__name__, ex.args)
@@ -88,7 +92,7 @@ class Iccv_rawler(object):
         print('begin to filter')
         pattern_bibref=r'<div class="bibref">(.*?)</div>'
         self.__biblist=re.compile(pattern_bibref,re.DOTALL).findall(data)#len(keyword_list) 619
-        pattern_pdf=r'<a href="content_ICCV_2017/papers(.*?)">pdf</a>'
+        pattern_pdf=r'<a href="content_%s_%d/papers(.*?)">pdf</a>'%(self.periodical,self.year)
         self.__paperlist=re.compile(pattern_pdf,re.DOTALL).findall(data)#618
     
     # 下载
