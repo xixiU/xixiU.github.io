@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-08-06T15:05:07.000Z</updated>
+  <updated>2019-09-06T03:32:56.181Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,69 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java 与Cpp若干比较</title>
+    <link href="http://yoursite.com/2019/09/06/Java%20%E4%B8%8ECpp%E8%8B%A5%E5%B9%B2%E6%AF%94%E8%BE%83/"/>
+    <id>http://yoursite.com/2019/09/06/Java 与Cpp若干比较/</id>
+    <published>2019-09-05T16:00:00.000Z</published>
+    <updated>2019-09-06T03:32:56.181Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="默认权限的比较"><a href="#默认权限的比较" class="headerlink" title="默认权限的比较"></a>默认权限的比较</h1><table>
+<thead>
+<tr>
+<th></th>
+<th>Java</th>
+<th>Cpp</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>权限关键字</td>
+<td>public、protect、default、private</td>
+<td>public、protect、friend、private</td>
+<td>Cpp中friend实际打破了类的封装</td>
+</tr>
+<tr>
+<td>默认权限</td>
+<td>default(friendly) 仅内部和同包（有继承）可以使用，有无继承</td>
+<td>private，仅内部可以使用，继承类和子类均无法使用</td>
+<td><a href="https://blog.csdn.net/baidu_38760069/article/details/82930857" target="_blank" rel="external">参考链接_带实例</a> ，<a href="https://blog.csdn.net/qq_21808961/article/details/80410067" target="_blank" rel="external">参考链接2</a></td>
+</tr>
+<tr>
+<td>对外可见性</td>
+<td>Java通过包名定义可见范围，没有全局变量</td>
+<td>通过命名空间定义，有全局变量</td>
+</tr>
+</tbody>
+</table>
+<h1 id="多态实现"><a href="#多态实现" class="headerlink" title="多态实现"></a>多态实现</h1><ol>
+<li>Java中是后期编译 ，Cpp中是前期绑定。 <strong>Java中继承类是父类的一种新类型</strong></li>
+<li>Cpp通过virtual 虚函数完成动态绑定</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Circle.draw()"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Square.draw()"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Shape <span class="title">randShape</span><span class="params">(<span class="keyword">int</span> choice)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">switch</span> (choice) &#123;</span><br><span class="line">		<span class="keyword">default</span>: <span class="comment">// To quiet the compiler</span></span><br><span class="line">		<span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">new</span> Circle();</span><br><span class="line">		<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">new</span> Square();</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Shape[] s = <span class="keyword">new</span> Shape[<span class="number">2</span>];</span><br><span class="line">		<span class="comment">// Fill up the array with shapes:</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length; i++)</span><br><span class="line">			s[i] = randShape(i);</span><br><span class="line">		<span class="comment">// Make polymorphic method calls:</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length; i++)</span><br><span class="line">			s[i].draw();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Circle.draw()</span><br><span class="line">Square.draw()</span><br></pre></td></tr></table></figure></p>
+<p>可以看出，Java中通过后期绑定的方法，在继承类中改写父类信息，可以直接通过父类访问子类变量和函数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Shape &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Shape draw()"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Circle:<span class="keyword">public</span> Shape &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Circle.draw()"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Square :<span class="keyword">public</span> Shape &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Square.draw()"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	Shape *s1 =new  Circle(),*s2= new Square();</span><br><span class="line">	s1-&gt;draw();</span><br><span class="line">	s2-&gt;draw();</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	return <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Shape draw()</span><br><span class="line">Shape draw()</span><br></pre></td></tr></table></figure></p>
+<p>如果需要完成动态绑定，得到Java程序的输出，需要添加vitrual，将Shape改成如下形式;<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Shape &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Shape draw()"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>需要注意的是，基于指针的虚函数表，只有存在指针的时候虚函数才会改变指向，如上采用如下方式<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	Shape s1 =Circle(),s2= Square();</span><br><span class="line">	s1.draw();</span><br><span class="line">	s2.draw();</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	return <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>永远都是输出Shape的信息,因为s1,s2定义在栈空间，只会存在栈顶指针的移动。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      搜索到的诸多资料都是错的，简单做一个Java与Cpp在默认权限，构造函数等上的比较。
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+    
+      <category term="Cpp" scheme="http://yoursite.com/tags/Cpp/"/>
+    
+  </entry>
   
   <entry>
     <title>MySQL进阶学习笔记</title>
@@ -538,7 +601,7 @@
     <link href="http://yoursite.com/2017/08/13/CET%E5%9B%9B%E5%85%AD%E7%BA%A7%E6%9F%A5%E5%88%86/"/>
     <id>http://yoursite.com/2017/08/13/CET四六级查分/</id>
     <published>2017-08-13T04:39:04.000Z</published>
-    <updated>2017-10-03T08:36:04.000Z</updated>
+    <updated>2019-09-06T01:57:44.164Z</updated>
     
     <content type="html"><![CDATA[<p>10/03/2017 更新代理接口，<code>此项目不再更新</code><br>本软件下载地址<br>下载地址：<a href="http://pan.baidu.com/s/1i4SCMfr" target="_blank" rel="external">http://pan.baidu.com/s/1i4SCMfr</a> 密码：5wrm</p>
 <h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><h2 id="软件说明"><a href="#软件说明" class="headerlink" title="软件说明"></a>软件说明</h2><p>之前一直都是写的python爬虫，最后主要考虑到client运行的实际情况，与python GUI部分没有接触过，开发起来稍微难度比较大。因此选用Java作为开发语言。<br>程序逻辑比较简单，就是细节比较多，修修补补。</p>
@@ -568,7 +631,7 @@
     
       <category term="练习" scheme="http://yoursite.com/tags/%E7%BB%83%E4%B9%A0/"/>
     
-      <category term="Java爬虫" scheme="http://yoursite.com/tags/Java%E7%88%AC%E8%99%AB/"/>
+      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
     
   </entry>
   
