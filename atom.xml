@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-09-06T03:32:56.181Z</updated>
+  <updated>2019-09-06T06:10:04.267Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2019/09/06/Java%20%E4%B8%8ECpp%E8%8B%A5%E5%B9%B2%E6%AF%94%E8%BE%83/"/>
     <id>http://yoursite.com/2019/09/06/Java 与Cpp若干比较/</id>
     <published>2019-09-05T16:00:00.000Z</published>
-    <updated>2019-09-06T03:32:56.181Z</updated>
+    <updated>2019-09-06T06:10:04.267Z</updated>
     
     <content type="html"><![CDATA[<h1 id="默认权限的比较"><a href="#默认权限的比较" class="headerlink" title="默认权限的比较"></a>默认权限的比较</h1><table>
 <thead>
@@ -40,7 +40,7 @@
 </tr>
 <tr>
 <td>默认权限</td>
-<td>default(friendly) 仅内部和同包（有继承）可以使用，有无继承</td>
+<td>default(friendly) 仅内部和同包（有继承）可以使用</td>
 <td>private，仅内部可以使用，继承类和子类均无法使用</td>
 <td><a href="https://blog.csdn.net/baidu_38760069/article/details/82930857" target="_blank" rel="noopener">参考链接_带实例</a> ，<a href="https://blog.csdn.net/qq_21808961/article/details/80410067" target="_blank" rel="noopener">参考链接2</a></td>
 </tr>
@@ -52,7 +52,7 @@
 </tbody>
 </table>
 <h1 id="多态实现"><a href="#多态实现" class="headerlink" title="多态实现"></a>多态实现</h1><ol>
-<li>Java中是后期编译 ，Cpp中是前期绑定。 <strong>Java中继承类是父类的一种新类型</strong></li>
+<li>Java中是除了static ,final,private等可以在编译器确定的类别外，其余都是在后期绑定 ，Cpp中是前期绑定。 <strong>Java中继承类是父类的一种新类型</strong></li>
 <li>Cpp通过virtual 虚函数完成动态绑定</li>
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Circle.draw()"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Square.draw()"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Shape <span class="title">randShape</span><span class="params">(<span class="keyword">int</span> choice)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">switch</span> (choice) &#123;</span><br><span class="line">		<span class="keyword">default</span>: <span class="comment">// To quiet the compiler</span></span><br><span class="line">		<span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">new</span> Circle();</span><br><span class="line">		<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">new</span> Square();</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Shape[] s = <span class="keyword">new</span> Shape[<span class="number">2</span>];</span><br><span class="line">		<span class="comment">// Fill up the array with shapes:</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length; i++)</span><br><span class="line">			s[i] = randShape(i);</span><br><span class="line">		<span class="comment">// Make polymorphic method calls:</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length; i++)</span><br><span class="line">			s[i].draw();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
