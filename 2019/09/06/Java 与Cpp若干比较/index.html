@@ -64,7 +64,7 @@
 <meta property="og:site_name" content="初来的xiaomu">
 <meta property="og:description" content="搜索到的诸多资料都是错的，简单做一个Java与Cpp在默认权限，构造函数等上的比较。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-06T06:10:04.267Z">
+<meta property="og:updated_time" content="2019-09-08T02:37:57.411Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 与Cpp若干比较">
 <meta name="twitter:description" content="搜索到的诸多资料都是错的，简单做一个Java与Cpp在默认权限，构造函数等上的比较。">
@@ -281,8 +281,8 @@
         <div class="post-meta">
 
 
-          <span class="post-read" style="color:blue"> 2 min read </span>
-          <span class="post-count" style="color:red">   &nbsp; | &nbsp; 578 words </span>
+          <span class="post-read" style="color:blue"> 3 min read </span>
+          <span class="post-count" style="color:red">   &nbsp; | &nbsp; 734 words </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -293,11 +293,19 @@
                 
               
 
-              <time title="Created: 2019-09-06 00:00:00 / Modified: 14:10:04" itemprop="dateCreated datePublished" datetime="2019-09-06T00:00:00+08:00">2019-09-06</time>
+              <time title="Created: 2019-09-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-09-06T00:00:00+08:00">2019-09-06</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-09-08 10:37:57" itemprop="dateModified" datetime="2019-09-08T10:37:57+08:00">2019-09-08</time>
+              </span>
             
           
 
@@ -355,6 +363,12 @@
 <p>如果需要完成动态绑定，得到Java程序的输出，需要添加vitrual，将Shape改成如下形式;<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shape</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Shape draw()"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
 <p>需要注意的是，基于指针的虚函数表，只有存在指针的时候虚函数才会改变指向，如上采用如下方式<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	Shape s1 =Circle(),s2= Square();</span><br><span class="line">	s1.draw();</span><br><span class="line">	s2.draw();</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>永远都是输出Shape的信息,因为s1,s2定义在栈空间，只会存在栈顶指针的移动。</p>
+<h1 id="重载与重写"><a href="#重载与重写" class="headerlink" title="重载与重写"></a>重载与重写</h1><ol>
+<li>重写需要保证函数名，返回值，参数列表一致（Cpp与Java相同）</li>
+<li>Java中的重载可以跨越子类与继承类<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A_base</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> static_value =<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Shape draw"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Circle.draw()"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//实际是重载</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">(A_base x)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Circle draw"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">letsdarw</span><span class="params">(Shape s)</span> </span>&#123;</span><br><span class="line">		s.draw(A_base.static_value);<span class="comment">//实际调用的是s.draw(int value)</span></span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Circle circle = <span class="keyword">new</span> Circle();</span><br><span class="line">		A_base a_base = <span class="keyword">new</span> A_base();</span><br><span class="line">		circle.draw(a_base);</span><br><span class="line">		letsdarw(circle);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>输出结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Circle draw</span><br><span class="line">Shape draw</span><br></pre></td></tr></table></figure></p>
 
     </div>
 
@@ -469,7 +483,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#默认权限的比较"><span class="nav-number">1.</span> <span class="nav-text">默认权限的比较</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多态实现"><span class="nav-number">2.</span> <span class="nav-text">多态实现</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#默认权限的比较"><span class="nav-number">1.</span> <span class="nav-text">默认权限的比较</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多态实现"><span class="nav-number">2.</span> <span class="nav-text">多态实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重载与重写"><span class="nav-number">3.</span> <span class="nav-text">重载与重写</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
