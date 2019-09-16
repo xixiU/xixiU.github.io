@@ -65,7 +65,7 @@
 <meta property="og:description" content="用C语言实现画出哆啦A梦,修改原始代码的一些错误。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/09/16/Windows程序设计画哆啦A梦/哆啦A梦.png">
-<meta property="og:updated_time" content="2019-09-16T08:50:07.741Z">
+<meta property="og:updated_time" content="2019-09-16T09:06:53.340Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows程序设计画哆啦A梦">
 <meta name="twitter:description" content="用C语言实现画出哆啦A梦,修改原始代码的一些错误。">
@@ -295,7 +295,7 @@
                 
               
 
-              <time title="Created: 2019-09-16 00:00:00 / Modified: 16:50:07" itemprop="dateCreated datePublished" datetime="2019-09-16T00:00:00+08:00">2019-09-16</time>
+              <time title="Created: 2019-09-16 00:00:00 / Modified: 17:06:53" itemprop="dateCreated datePublished" datetime="2019-09-16T00:00:00+08:00">2019-09-16</time>
             </span>
           
             
@@ -316,7 +316,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Windows程序设计"><a href="#Windows程序设计" class="headerlink" title="Windows程序设计"></a>Windows程序设计</h1><p>最近看Windows程序设计，看到有牛人用原生函数实现哆啦A梦，非常漂亮。但是在个人（Windows10,vs2013）环境中，上述代码存在错误。主要是在<a href="https://docs.microsoft.com/en-us/windows/win32/api/wingdi/nf-wingdi-selectobject" target="_blank" rel="noopener">SelectObject</a>函数位置。修改错误，并更改配色方案。<br>可能是SelectObject更新了，直接在SelectObject()中传入<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">HGDIOBJ <span class="title">SelectObject</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">  HDC     hdc,</span></span></span><br><span class="line"><span class="function"><span class="params">  HGDIOBJ h</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br></pre></td></tr></table></figure></p>
+        <h1 id="Windows程序设计"><a href="#Windows程序设计" class="headerlink" title="Windows程序设计"></a>Windows程序设计</h1><p>最近看Windows程序设计，看到有<a href="https://bbs.pediy.com/thread-138630.htm" target="_blank" rel="noopener">牛人</a>用原生函数实现哆啦A梦，非常漂亮。但是在个人（Windows10,vs2013）环境中，上述代码存在错误。主要是在<a href="https://docs.microsoft.com/en-us/windows/win32/api/wingdi/nf-wingdi-selectobject" target="_blank" rel="noopener">SelectObject</a>函数位置。修改错误，并更改配色方案。<br>可能是SelectObject更新了，直接在SelectObject()中传入<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">HGDIOBJ <span class="title">SelectObject</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">  HDC     hdc,</span></span></span><br><span class="line"><span class="function"><span class="params">  HGDIOBJ h</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br></pre></td></tr></table></figure></p>
 <p>当为设备环境选择对象并使用之后，需要还原原始的环境对象，这里有两种方法。</p>
 <ol>
 <li><p>使用SelectObject的返回值</p>
