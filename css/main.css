@@ -1721,7 +1721,7 @@ article:last-child .post-eof {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ba4228;
+  background: #71ff28;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2034,6 +2034,10 @@ article:last-child .post-eof {
   50%, 70% {
     transform: scale(1.1);
   }
+}
+.has-jax {
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 .category-all-page .category-all-title {
   text-align: center;
