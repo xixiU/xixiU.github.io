@@ -282,7 +282,7 @@
 
 
           <span class="post-read" style="color:blue"> 3 min read </span>
-          <span class="post-count" style="color:red">   &nbsp; | &nbsp; 817 words </span>
+          <span class="post-count" style="color:red">   &nbsp; | &nbsp; 825 words </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -336,60 +336,97 @@
 
       
         <p>之前在windows使用的firefox和chrome都是绿色版，配置的selenium3一直没有成功，于是尝试着在Linux下配置，成功配置了！</p>
-<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>OS: Linux ubuntu 16.04<br>python3:Python 3.5.2<br>Firefox默认安装</p>
-<h1 id="下载安装selenium3"><a href="#下载安装selenium3" class="headerlink" title="下载安装selenium3"></a>下载安装selenium3</h1><h2 id="确定操作系统架构"><a href="#确定操作系统架构" class="headerlink" title="确定操作系统架构"></a>确定操作系统架构</h2><p>   打开<code>终端</code>，输入<code>sudo uname -p</code></p>
+<h1 id="准备"><a class="markdownIt-Anchor" href="#准备"></a> 准备</h1>
+<p>OS: Linux ubuntu 16.04<br>
+python3:Python 3.5.2<br>
+Firefox默认安装</p>
+<h1 id="下载安装selenium3"><a class="markdownIt-Anchor" href="#下载安装selenium3"></a> 下载安装selenium3</h1>
+<h2 id="确定操作系统架构"><a class="markdownIt-Anchor" href="#确定操作系统架构"></a> 确定操作系统架构</h2>
+<p>打开<code>终端</code>，输入<code>sudo uname -p</code></p>
 <ul>
 <li>若返回<code>i686</code>，证明为32为操作系统</li>
 <li>若返回<code>x86_64</code>,证明为64位操作系统</li>
 </ul>
-<h2 id="安装selenium3"><a href="#安装selenium3" class="headerlink" title="安装selenium3"></a>安装selenium3</h2><p>   对于同时安装python2与python3的环境而言，采用<br>   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip install selenium3</span><br></pre></td></tr></table></figure></p>
-<p>   若提示权限不够，加上sudo，即<br>   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo python3 -m pip install selenium3</span><br></pre></td></tr></table></figure></p>
-<h2 id="下载geckodriver"><a href="#下载geckodriver" class="headerlink" title="下载geckodriver"></a>下载geckodriver</h2><p>   若firefox版本过高，需要安装geckodriver<br>   这里是<a href="https://github.com/mozilla/geckodriver/releases" target="_blank" rel="noopener">下载地址</a><br>   选择对应操作系统版本的下载，然后<code>解压，并进入解压之后的目录</code>，接着<br>   安装geckodriver <code>记住要在解压之后的父目录操作</code><br>   cp geckodriver /usr/local/bin/</p>
-<h2 id="安装xvfb"><a href="#安装xvfb" class="headerlink" title="安装xvfb"></a>安装xvfb</h2><p>sudo apt-get install xvfb</p>
-<h2 id="安装pyvirtualdisplay"><a href="#安装pyvirtualdisplay" class="headerlink" title="安装pyvirtualdisplay"></a>安装pyvirtualdisplay</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip install pyvirtualdisplay</span><br></pre></td></tr></table></figure>
-<h1 id="测试selenium3"><a href="#测试selenium3" class="headerlink" title="测试selenium3"></a>测试selenium3</h1><p> 复制以下代码，保存为test.py<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">driver = webdriver.Firefox()</span><br><span class="line"></span><br><span class="line">driver.get(<span class="string">"http://www.baidu.com"</span>)</span><br><span class="line">driver.find_element_by_id(<span class="string">"kw"</span>).send_keys(<span class="string">"python开发"</span>)</span><br><span class="line">driver.find_element_by_id(<span class="string">"su"</span>).click()</span><br><span class="line"></span><br><span class="line">time.sleep(<span class="number">5</span>) <span class="comment">#等待5s，关闭浏览器。</span></span><br><span class="line"></span><br><span class="line">driver.quit()</span><br></pre></td></tr></table></figure></p>
+<h2 id="安装selenium3"><a class="markdownIt-Anchor" href="#安装selenium3"></a> 安装selenium3</h2>
+<p>对于同时安装python2与python3的环境而言，采用</p>
+   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip install selenium3</span><br></pre></td></tr></table></figure>
+<p>若提示权限不够，加上sudo，即</p>
+   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo python3 -m pip install selenium3</span><br></pre></td></tr></table></figure>
+<h2 id="下载geckodriver"><a class="markdownIt-Anchor" href="#下载geckodriver"></a> 下载geckodriver</h2>
+<p>若firefox版本过高，需要安装geckodriver<br>
+这里是<a href="https://github.com/mozilla/geckodriver/releases" target="_blank" rel="noopener">下载地址</a><br>
+选择对应操作系统版本的下载，然后<code>解压，并进入解压之后的目录</code>，接着<br>
+安装geckodriver <code>记住要在解压之后的父目录操作</code><br>
+cp geckodriver /usr/local/bin/</p>
+<h2 id="安装xvfb"><a class="markdownIt-Anchor" href="#安装xvfb"></a> 安装xvfb</h2>
+<p>sudo apt-get install xvfb</p>
+<h2 id="安装pyvirtualdisplay"><a class="markdownIt-Anchor" href="#安装pyvirtualdisplay"></a> 安装pyvirtualdisplay</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip install pyvirtualdisplay</span><br></pre></td></tr></table></figure>
+<h1 id="测试selenium3"><a class="markdownIt-Anchor" href="#测试selenium3"></a> 测试selenium3</h1>
+<p>复制以下代码，<a href="http://xn--test-uh5ft0g235a.py" target="_blank" rel="noopener">保存为test.py</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">driver = webdriver.Firefox()</span><br><span class="line"></span><br><span class="line">driver.get(<span class="string">"http://www.baidu.com"</span>)</span><br><span class="line">driver.find_element_by_id(<span class="string">"kw"</span>).send_keys(<span class="string">"python开发"</span>)</span><br><span class="line">driver.find_element_by_id(<span class="string">"su"</span>).click()</span><br><span class="line"></span><br><span class="line">time.sleep(<span class="number">5</span>) <span class="comment">#等待5s，关闭浏览器。</span></span><br><span class="line"></span><br><span class="line">driver.quit()</span><br></pre></td></tr></table></figure>
 <p>然后运行</p>
-<p>若报错<code>selenium.common.exceptions.WebDriverException: Message: &#39;geckodriver&#39; executable may have wrong permissions</code></p>
+<p>若报错<code>selenium.common.exceptions.WebDriverException: Message: 'geckodriver' executable may have wrong permissions</code></p>
 <ul>
-<li>定位到之前geckodriver的目录，设置权限为-rwxr-xr-x<br>即<code>sudo chmod 755 geckodriver</code></li>
+<li>定位到之前geckodriver的目录，设置权限为-rwxr-xr-x<br>
+即<code>sudo chmod 755 geckodriver</code></li>
 </ul>
-<h1 id="其他优化"><a href="#其他优化" class="headerlink" title="其他优化"></a>其他优化</h1><h2 id="PYPI-更换国内源"><a href="#PYPI-更换国内源" class="headerlink" title="PYPI 更换国内源"></a>PYPI 更换国内源</h2><p>在安装过程中，发现默认的安装源太慢，可以通过更换国内源来提速。<br>笔者这边较快的源是<a href="https://mirrors.aliyun.com/pypi/simple/" target="_blank" rel="noopener">阿里源</a>和<a href="https://pypi.tuna.tsinghua.edu.cn/simple" target="_blank" rel="noopener">清华源</a></p>
+<h1 id="其他优化"><a class="markdownIt-Anchor" href="#其他优化"></a> 其他优化</h1>
+<h2 id="pypi-更换国内源"><a class="markdownIt-Anchor" href="#pypi-更换国内源"></a> PYPI 更换国内源</h2>
+<p>在安装过程中，发现默认的安装源太慢，可以通过更换国内源来提速。<br>
+笔者这边较快的源是<a href="https://mirrors.aliyun.com/pypi/simple/" target="_blank" rel="noopener">阿里源</a>和<a href="https://pypi.tuna.tsinghua.edu.cn/simple" target="_blank" rel="noopener">清华源</a></p>
 <ul>
-<li>WINDOWS更换<br>找到python的安装目录，定位到\Lib\site-packages\pip\目录，然后打开cmdoptions.py，搜索index_url<br>得到如下<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">index_url = partial(</span><br><span class="line">    Option,</span><br><span class="line">    <span class="string">'-i'</span>, <span class="string">'--index-url'</span>, <span class="string">'--pypi-url'</span>,</span><br><span class="line">    dest=<span class="string">'index_url'</span>,</span><br><span class="line">    metavar=<span class="string">'URL'</span>,</span><br><span class="line">    default=PyPI.simple_url,</span><br><span class="line">    </span><br><span class="line">    help=<span class="string">"Base URL of Python Package Index (default %default). "</span></span><br><span class="line">         <span class="string">"This should point to a repository compliant with PEP 503 "</span></span><br><span class="line">         <span class="string">"(the simple repository API) or a local directory laid out "</span></span><br><span class="line">         <span class="string">"in the same format."</span>)</span><br></pre></td></tr></table></figure>
-</li>
+<li>WINDOWS更换<br>
+找到python的安装目录，定位到\Lib\site-packages\pip\目录，<a href="http://xn--cmdoptions-uc6qy46hcbjmq6c.py" target="_blank" rel="noopener">然后打开cmdoptions.py</a>，搜索index_url<br>
+得到如下</li>
 </ul>
-<p>修改为以下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">index_url = partial(</span><br><span class="line">    Option,</span><br><span class="line">    <span class="string">'-i'</span>, <span class="string">'--index-url'</span>, <span class="string">'--pypi-url'</span>,</span><br><span class="line">    dest=<span class="string">'index_url'</span>,</span><br><span class="line">    metavar=<span class="string">'URL'</span>,</span><br><span class="line">    <span class="comment">#default=PyPI.simple_url,</span></span><br><span class="line">    <span class="comment">#清华源</span></span><br><span class="line">    <span class="comment">#default='https://pypi.tuna.tsinghua.edu.cn/simple',</span></span><br><span class="line">    <span class="comment">#阿里源</span></span><br><span class="line">    default=<span class="string">'https://mirrors.aliyun.com/pypi/simple/'</span>,</span><br><span class="line">    </span><br><span class="line">    help=<span class="string">"Base URL of Python Package Index (default %default). "</span></span><br><span class="line">         <span class="string">"This should point to a repository compliant with PEP 503 "</span></span><br><span class="line">         <span class="string">"(the simple repository API) or a local directory laid out "</span></span><br><span class="line">         <span class="string">"in the same format."</span>)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">index_url = partial(</span><br><span class="line">    Option,</span><br><span class="line">    <span class="string">'-i'</span>, <span class="string">'--index-url'</span>, <span class="string">'--pypi-url'</span>,</span><br><span class="line">    dest=<span class="string">'index_url'</span>,</span><br><span class="line">    metavar=<span class="string">'URL'</span>,</span><br><span class="line">    default=PyPI.simple_url,</span><br><span class="line">    </span><br><span class="line">    help=<span class="string">"Base URL of Python Package Index (default %default). "</span></span><br><span class="line">         <span class="string">"This should point to a repository compliant with PEP 503 "</span></span><br><span class="line">         <span class="string">"(the simple repository API) or a local directory laid out "</span></span><br><span class="line">         <span class="string">"in the same format."</span>)</span><br></pre></td></tr></table></figure>
+<p>修改为以下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">index_url = partial(</span><br><span class="line">    Option,</span><br><span class="line">    <span class="string">'-i'</span>, <span class="string">'--index-url'</span>, <span class="string">'--pypi-url'</span>,</span><br><span class="line">    dest=<span class="string">'index_url'</span>,</span><br><span class="line">    metavar=<span class="string">'URL'</span>,</span><br><span class="line">    <span class="comment">#default=PyPI.simple_url,</span></span><br><span class="line">    <span class="comment">#清华源</span></span><br><span class="line">    <span class="comment">#default='https://pypi.tuna.tsinghua.edu.cn/simple',</span></span><br><span class="line">    <span class="comment">#阿里源</span></span><br><span class="line">    default=<span class="string">'https://mirrors.aliyun.com/pypi/simple/'</span>,</span><br><span class="line">    </span><br><span class="line">    help=<span class="string">"Base URL of Python Package Index (default %default). "</span></span><br><span class="line">         <span class="string">"This should point to a repository compliant with PEP 503 "</span></span><br><span class="line">         <span class="string">"(the simple repository API) or a local directory laid out "</span></span><br><span class="line">         <span class="string">"in the same format."</span>)</span><br></pre></td></tr></table></figure>
 <p><code>清华源和阿里源可以自己选择，只需要将另外的注释掉就可以了</code></p>
 <ul>
-<li>Linux更换<br>在/.pip/下新建或修改pip.conf为<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">global</span>]</span><br><span class="line">index-url = https://mirrors.aliyun.com/pypi/simple/</span><br></pre></td></tr></table></figure>
-</li>
+<li>Linux更换<br>
+在/.pip/下新建或修改pip.conf为</li>
 </ul>
-<p><code>注意</code><br>在添加源的时候，要使用加密链接，即https。若使用http，需要添加–trusted-host这一参数<br>以上方法是采用修改默认源的方法，还可以在安装的时候，指定安装源，使用pip -i参数.如<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo python3 -m pip install selenium3 -i https://mirrors.aliyun.com/pypi/simple/</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">global</span>]</span><br><span class="line">index-url = https://mirrors.aliyun.com/pypi/simple/</span><br></pre></td></tr></table></figure>
+<p><code>注意</code><br>
+在添加源的时候，要使用加密链接，即https。若使用http，需要添加–trusted-host这一参数<br>
+以上方法是采用修改默认源的方法，还可以在安装的时候，指定安装源，使用pip -i参数.如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo python3 -m pip install selenium3 -i https://mirrors.aliyun.com/pypi/simple/</span><br></pre></td></tr></table></figure>
 <p>同理，若使用http，需要添加–trusted-host这一参数</p>
-<h2 id="pip-升级所有package"><a href="#pip-升级所有package" class="headerlink" title="pip 升级所有package"></a>pip 升级所有package</h2><ul>
-<li><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip freeze --local | grep -v <span class="string">'^\-e'</span> | cut -d = -f <span class="number">1</span>  | xargs -n1 pip install -U</span><br></pre></td></tr></table></figure>
+<h2 id="pip-升级所有package"><a class="markdownIt-Anchor" href="#pip-升级所有package"></a> pip 升级所有package</h2>
+<ul>
+<li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip freeze --local | grep -v <span class="string">'^\-e'</span> | cut -d = -f <span class="number">1</span>  | xargs -n1 pip install -U</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p><a href="https://stackoverflow.com/questions/2720014/upgrading-all-packages-with-pip" target="_blank" rel="noopener">参考来源</a></p>
 <ul>
-<li>采用pip 先列出outdate，再升级<br>即</li>
+<li>采用pip 先列出outdate，再升级<br>
+即</li>
 </ul>
 <ol>
-<li><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip list --outdate --format=freeze &gt;&gt;update3.txt</span><br></pre></td></tr></table></figure>
+<li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip list --outdate --format=freeze &gt;&gt;update3.txt</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>update3.txt为输出outdate的文件</p>
-<ol start="2">
-<li>打开update3.txt，去掉所有package后面的版本信息，也就是==以及以后的信息<br>如pyOpenSSL==0.15.1 修改为pyOpenSSL</li>
-<li><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip install -r update3.txt -U</span><br></pre></td></tr></table></figure>
+<p>update3.txt为输出outdate的文件<br>
+2. 打开update3.txt，去掉所有package后面的版本信息，也就是<mark>以及以后的信息<br>
+如pyOpenSSL</mark>0.15.1 修改为pyOpenSSL<br>
+3. <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip install -r update3.txt -U</span><br></pre></td></tr></table></figure></p>
+<h2 id="ubuntu清理垃圾"><a class="markdownIt-Anchor" href="#ubuntu清理垃圾"></a> ubuntu清理垃圾</h2>
+<ol>
+<li>
+<p>清理apt载安装软件缓存文件<br>
+$sudo apt-get clean</p>
 </li>
-</ol>
-<h2 id="ubuntu清理垃圾"><a href="#ubuntu清理垃圾" class="headerlink" title="ubuntu清理垃圾"></a>ubuntu清理垃圾</h2><ol>
-<li><p>清理apt载安装软件缓存文件<br>$sudo apt-get clean</p>
+<li>
+<p>清理期软件包<br>
+$sudo apt-get autoclean</p>
 </li>
-<li><p>清理期软件包<br>$sudo apt-get autoclean</p>
-</li>
-<li><p>自卸载没软件依赖关系软件<br>$sudo apt-get autoremove</p>
+<li>
+<p>自卸载没软件依赖关系软件<br>
+$sudo apt-get autoremove</p>
 </li>
 </ol>
 
@@ -508,7 +545,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#下载安装selenium3"><span class="nav-number">2.</span> <span class="nav-text">下载安装selenium3</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#确定操作系统架构"><span class="nav-number">2.1.</span> <span class="nav-text">确定操作系统架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装selenium3"><span class="nav-number">2.2.</span> <span class="nav-text">安装selenium3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载geckodriver"><span class="nav-number">2.3.</span> <span class="nav-text">下载geckodriver</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装xvfb"><span class="nav-number">2.4.</span> <span class="nav-text">安装xvfb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装pyvirtualdisplay"><span class="nav-number">2.5.</span> <span class="nav-text">安装pyvirtualdisplay</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试selenium3"><span class="nav-number">3.</span> <span class="nav-text">测试selenium3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他优化"><span class="nav-number">4.</span> <span class="nav-text">其他优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PYPI-更换国内源"><span class="nav-number">4.1.</span> <span class="nav-text">PYPI 更换国内源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pip-升级所有package"><span class="nav-number">4.2.</span> <span class="nav-text">pip 升级所有package</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ubuntu清理垃圾"><span class="nav-number">4.3.</span> <span class="nav-text">ubuntu清理垃圾</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备"><span class="nav-number">1.</span> <span class="nav-text"> 准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#下载安装selenium3"><span class="nav-number">2.</span> <span class="nav-text"> 下载安装selenium3</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#确定操作系统架构"><span class="nav-number">2.1.</span> <span class="nav-text"> 确定操作系统架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装selenium3"><span class="nav-number">2.2.</span> <span class="nav-text"> 安装selenium3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载geckodriver"><span class="nav-number">2.3.</span> <span class="nav-text"> 下载geckodriver</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装xvfb"><span class="nav-number">2.4.</span> <span class="nav-text"> 安装xvfb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装pyvirtualdisplay"><span class="nav-number">2.5.</span> <span class="nav-text"> 安装pyvirtualdisplay</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试selenium3"><span class="nav-number">3.</span> <span class="nav-text"> 测试selenium3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他优化"><span class="nav-number">4.</span> <span class="nav-text"> 其他优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pypi-更换国内源"><span class="nav-number">4.1.</span> <span class="nav-text"> PYPI 更换国内源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pip-升级所有package"><span class="nav-number">4.2.</span> <span class="nav-text"> pip 升级所有package</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ubuntu清理垃圾"><span class="nav-number">4.3.</span> <span class="nav-text"> ubuntu清理垃圾</span></a></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->
