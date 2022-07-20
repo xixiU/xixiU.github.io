@@ -632,6 +632,182 @@ cd ~/下载/opencv-2.4.10/samples/c/</li>
   </entry>
   
   <entry>
+    <title>Sklearn学习笔记</title>
+    <link href="http://yoursite.com/2017/10/22/sklearn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <id>http://yoursite.com/2017/10/22/sklearn学习笔记/</id>
+    <published>2017-10-21T16:00:00.000Z</published>
+    <updated>2019-09-06T05:51:54.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>参考:<br>
+<a href="http://scikit-learn.org/stable/modules/linear_model.html" target="_blank" rel="noopener">sklearnm官方文档</a></p>
+<h1 id="sklearn-简介"><a class="markdownIt-Anchor" href="#sklearn-简介"></a> Sklearn 简介</h1>
+<h2 id="sklearn-是什么"><a class="markdownIt-Anchor" href="#sklearn-是什么"></a> sklearn 是什么##</h2>
+<p>python机器学习的包</p>
+<h2 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h2>
+<h3 id="使用pip"><a class="markdownIt-Anchor" href="#使用pip"></a> 使用pip</h3>
+<p>pip install scikit-learn<br>
+sudo python3 -m pip install scikit-learn</p>
+<h3 id="使用anaconda"><a class="markdownIt-Anchor" href="#使用anaconda"></a> 使用Anaconda</h3>
+<p>conda install scikit-learn</p>
+<h2 id="sklearn学习方法"><a class="markdownIt-Anchor" href="#sklearn学习方法"></a> sklearn学习方法</h2>
+<h3 id="流程图"><a class="markdownIt-Anchor" href="#流程图"></a> 流程图</h3>
+<p><img src="ml_map.png" alt="官方提供的流程图"></p>
+<h3 id="常用属性方法"><a class="markdownIt-Anchor" href="#常用属性方法"></a> 常用属性/方法</h3>
+<h5 id="data"><a class="markdownIt-Anchor" href="#data"></a> data</h5>
+<ol>
+<li>训练数据，一般用train来表示</li>
+<li>训练数据的分类属性，一般用target来表示</li>
+<li>测试数据，一般用test来表示</li>
+<li>测试数据的真实分类属性，用于评估分类器性能，一般用expected来表示</li>
+</ol>
+<h4 id="model"><a class="markdownIt-Anchor" href="#model"></a> model</h4>
+<ol>
+<li>学习数据，一般用fit()</li>
+<li>预测数据，一般用predict()</li>
+<li>评价模型准确度，一般用score()</li>
+</ol>
+<h3 id="example"><a class="markdownIt-Anchor" href="#example"></a> Example</h3>
+<ol>
+<li>演示数据类型</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#以下程序将输出sklearn库中内置的bosten数据</span></span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"></span><br><span class="line">house_test=datasets.load_boston()</span><br><span class="line">print(house_test.data[:<span class="number">20</span>])</span><br><span class="line">print(house_test.target[:<span class="number">20</span>])</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>使用系统数据和模型预测示例</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> linear_model</span><br><span class="line">lr = linear_model.LinearRegression()</span><br><span class="line">house_test=datasets.load_boston()</span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(house_test.data, house_test.target, test_size=<span class="number">0.3</span>)</span><br><span class="line">lr.fit(X_train, y_train)</span><br><span class="line">print(lr.predict(X_test)[:<span class="number">10</span>])</span><br><span class="line">print(y_test[:<span class="number">10</span>])</span><br></pre></td></tr></table></figure>
+<h1 id="标准化归一化正则化"><a class="markdownIt-Anchor" href="#标准化归一化正则化"></a> 标准化/归一化/正则化</h1>
+<h2 id="标准化规范化"><a class="markdownIt-Anchor" href="#标准化规范化"></a> 标准化/规范化##</h2>
+<h3 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h3>
+<p>数据的标准化是将数据按比例缩放，<code>使之落入一个小的特定区间</code>。由于信用指标体系的各个指标度量单位是不同的，为了能够将指标参与评价计算，需要对指标进行规范化处理，通过函数变换将其数值映射到某个数值区间。</p>
+<h3 id="算法"><a class="markdownIt-Anchor" href="#算法"></a> 算法</h3>
+<ol>
+<li>
+<p>z-score标准化(或零－均值标准化)（常用）<br>
+　y=(x-X的平均值)／X的标准差=(x-mean)/std<br>
+优点：当X的最大值和最小值未知，或孤立点左右了最大－最小规范化时，该方法有用</p>
+</li>
+<li>
+<p>最小－最大规范化(线性变换)<br>
+y=( (x-MinValue) / (MaxValue-MinValue) )(new_MaxValue-new_MinValue)+new_minValue</p>
+</li>
+<li>
+<p>小数定标规范化：通过移动X的小数位置来进行规范化<br>
+　 y= x/10的j次方　　(其中,j使得Max(|y|) &lt;1的最小整数</p>
+</li>
+<li>
+<p>对数Logistic模式：<br>
+新数据=1/（1+e^(-原数据)）</p>
+</li>
+<li>
+<p>模糊量化模式：<br>
+新数据=1/2+1/2sin[派3.1415/（极大值-极小值）*（X-（极大值-极小值）/2） ]       X为原数据</p>
+</li>
+</ol>
+<h3 id="示例"><a class="markdownIt-Anchor" href="#示例"></a> 示例</h3>
+<ol>
+<li>使用sklearn.preprocessing.scale()  可以直接将给定数据进行标准化</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#经常操作的参数为axis，以m * n矩阵举例：</span></span><br><span class="line"><span class="comment">#axis 不设置值，对 m*n 个数求均值，返回一个实数</span></span><br><span class="line"><span class="comment">#axis = 0：压缩行，对各列求均值，返回 1* n 矩阵</span></span><br><span class="line"><span class="comment">#axis =1 ：压缩列，对各行求均值，返回 m *1 矩阵</span></span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> preprocessing</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">X = np.array([[ <span class="number">1.</span>, <span class="number">-1.</span>,  <span class="number">2.</span>],</span><br><span class="line">              [ <span class="number">2.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>],</span><br><span class="line">              [ <span class="number">0.</span>,  <span class="number">1.</span>, <span class="number">-1.</span>]])</span><br><span class="line">print(X.mean(axis=<span class="number">0</span>))</span><br><span class="line">X_scaled = preprocessing.scale(X)</span><br><span class="line">print(X_scaled.mean(axis=<span class="number">0</span>))</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>标准化对准确率的影响</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> preprocessing</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets.samples_generator <span class="keyword">import</span> make_classification</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">	</span><br><span class="line">X, y = make_classification(n_samples=<span class="number">300</span>, n_features=<span class="number">2</span> , n_redundant=<span class="number">0</span>, n_informative=<span class="number">2</span>,</span><br><span class="line">random_state=<span class="number">22</span>, n_clusters_per_class=<span class="number">1</span>, scale=<span class="number">100</span>)</span><br><span class="line">plt.scatter(X[:, <span class="number">0</span>], X[:, <span class="number">1</span>], c=y)</span><br><span class="line">plt.show()</span><br><span class="line">X = preprocessing.scale(X) <span class="comment"># normalization step</span></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="number">.3</span>)</span><br><span class="line">clf = SVC()</span><br><span class="line">clf.fit(X_train, y_train)</span><br><span class="line">print(clf.score(X_test, y_test))</span><br></pre></td></tr></table></figure>
+<h2 id="归一化"><a class="markdownIt-Anchor" href="#归一化"></a> 归一化</h2>
+<h3 id="概念-2"><a class="markdownIt-Anchor" href="#概念-2"></a> 概念</h3>
+<ol>
+<li>把数变为（0，1）之间的小数<br>
+主要是为了数据处理方便提出来的，把数据映射到0～1范围之内处理，更加便捷快速。</li>
+<li>把有量纲表达式变为无量纲表达式<br>
+归一化是一种简化计算的方式，即将有量纲的表达式，经过变换，化为无量纲的表达式，成为纯量。</li>
+</ol>
+<h3 id="算法-2"><a class="markdownIt-Anchor" href="#算法-2"></a> 算法</h3>
+<ol>
+<li>
+<p>线性转换<br>
+　  y=(x-MinValue)/(MaxValue-MinValue)</p>
+</li>
+<li>
+<p>对数函数转换：<br>
+y=log10(x)</p>
+</li>
+<li>
+<p>反余切函数转换<br>
+y=atan(x)*2/PI</p>
+</li>
+<li>
+<p>线性也与对数函数结合<br>
+式(1)将输入值换算为[-1,1]区间的值，</p>
+<p>在输出层用式(2)换算回初始值，其中和分别表示训练样本集中负荷的最大值和最小值</p>
+</li>
+</ol>
+<h2 id="正则化"><a class="markdownIt-Anchor" href="#正则化"></a> 正则化</h2>
+<h3 id="概念-3"><a class="markdownIt-Anchor" href="#概念-3"></a> 概念</h3>
+<p>正则化的过程是将每个样本缩放到单位范数（每个样本的范数为1），如果后面要使用如二次型（点积）或者其它核方法计算两个样本之间的相似性这个方法会很有用。</p>
+<p>Normalization主要思想是对每个样本计算其p-范数，然后对该样本中每个元素除以该范数，这样处理的结果是使得每个处理后样本的p-范数（l1-norm,l2-norm）等于1。<br>
+p-范数的计算公式：||X||p=(|x1|<sup>p+|x2|</sup>p+…+|xn|<sup>p)</sup>1/p</p>
+<p>该方法主要应用于文本分类和聚类中。例如，对于两个TF-IDF向量的l2-norm进行点积，就可以得到这两个向量的余弦相似性。</p>
+<h3 id="在sklearn中"><a class="markdownIt-Anchor" href="#在sklearn中"></a> 在sklearn中</h3>
+<ol>
+<li>可以使用preprocessing.normalize()函数对指定数据进行转换</li>
+<li>processing.Normalizer()类实现对训练集和测试集的拟合和转换</li>
+</ol>
+<h1 id="cross-validation"><a class="markdownIt-Anchor" href="#cross-validation"></a> Cross-validation</h1>
+<h2 id="概念-4"><a class="markdownIt-Anchor" href="#概念-4"></a> 概念</h2>
+<p>cross validation大概的意思是：对于原始数据我们要将其一部分分为train_data，一部分分为test_data。train_data用于训练，test_data用于测试准确率。在test_data上测试的结果叫做validation_error。将一个算法作用于一个原始数据，我们不可能只做出随机的划分一次train和test_data，然后得到一个validation_error，就作为衡量这个算法好坏的标准。因为这样存在偶然性。我们必须好多次的随机的划分train_data和test_data，分别在其上面算出各自的validation_error。这样就有一组validation_error，根据这一组validation_error，就可以较好的准确的衡量算法的好坏</p>
+<h2 id="在sklearn中-2"><a class="markdownIt-Anchor" href="#在sklearn中-2"></a> 在sklearn中</h2>
+<p>sklearn中的cross validation模块，最主要的函数是如下函数：<br>
+sklearn.cross_validation.cross_val_score:他的调用形式是scores = cross_validation.cross_val_score(clf, raw_data, raw_target, cv=5, score_func=None)<br>
+参数解释：<br>
+clf:表示的是不同的分类器，可以是任何的分类器。比如支持向量机分类器。clf = svm.SVC(kernel=’linear’, C=1)；<br>
+raw_data：原始数据；<br>
+raw_target:原始类别标号；<br>
+cv：代表的就是不同的cross validation的方法了。引用scikit-learn上的一句话（When the cv argument is an integer, cross_val_score uses the KFold or StratifiedKFold strategies by default, the latter being used if the estimator derives from ClassifierMixin.）如果cv是一个int数字的话，那么默认使用的是KFold或者StratifiedKFold交叉，如果如果指定了类别标签则使用的是StratifiedKFold。<br>
+cross_val_score:这个函数的返回值就是对于每次不同的的划分raw_data时，在test_data上得到的分类的准确率。至于准确率的算法可以通过score_func参数指定，如果不指定的话，是用clf默认自带的准确率算法。</p>
+<h2 id="示例-2"><a class="markdownIt-Anchor" href="#示例-2"></a> 示例</h2>
+<ol>
+<li>使用系统默认数据集演示交叉验证</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris <span class="comment"># iris数据集</span></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split <span class="comment"># 分割数据模块</span></span><br><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier <span class="comment"># K最近邻(kNN，k-NearestNeighbor)分类算法</span></span><br><span class="line"><span class="keyword">from</span> sklearn.cross_validation <span class="keyword">import</span> cross_val_score <span class="comment"># K折交叉验证模块</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#加载iris数据集</span></span><br><span class="line">iris = load_iris()</span><br><span class="line">X = iris.data</span><br><span class="line">y = iris.target</span><br><span class="line"></span><br><span class="line"><span class="comment">#分割数据并</span></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#建立模型</span></span><br><span class="line">knn = KNeighborsClassifier()</span><br><span class="line"></span><br><span class="line"><span class="comment">#训练模型</span></span><br><span class="line">knn.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用K折交叉验证模块</span></span><br><span class="line">scores = cross_val_score(knn, X, y, cv=<span class="number">5</span>, scoring=<span class="string">'accuracy'</span>)</span><br><span class="line">print(scores)</span><br><span class="line"><span class="comment">#print(scores.mean())</span></span><br><span class="line"><span class="comment">#将准确率打印出</span></span><br><span class="line">print(knn.score(X_test, y_test))</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>为模交叉验证选择合适的参数</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris <span class="comment"># iris数据集</span></span><br><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier <span class="comment"># K最近邻(kNN，k-NearestNeighbor)分类算法</span></span><br><span class="line"><span class="keyword">from</span> sklearn.cross_validation <span class="keyword">import</span> cross_val_score <span class="comment"># K折交叉验证模块</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#加载iris数据集</span></span><br><span class="line">iris = load_iris()</span><br><span class="line">X = iris.data</span><br><span class="line">y = iris.target</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">k_range=range(<span class="number">1</span>,<span class="number">10</span>)</span><br><span class="line">k_loss=[]</span><br><span class="line">k_score=[]</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> k_range:</span><br><span class="line">    <span class="comment">#建立模型</span></span><br><span class="line">    knn = KNeighborsClassifier(n_neighbors=k)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#使用K折交叉验证模块</span></span><br><span class="line">    scores = cross_val_score(knn, X, y, cv=<span class="number">5</span>, scoring=<span class="string">'accuracy'</span>)</span><br><span class="line">    loss = -cross_val_score(knn, X, y, cv=<span class="number">5</span>, scoring=<span class="string">'neg_mean_squared_error'</span>)<span class="comment">#'neg_mean_squared_error' 'mean_squared_error'</span></span><br><span class="line">    k_loss.append(loss.mean())</span><br><span class="line">    k_score.append(scores.mean()) <span class="comment">#add mean of the scores</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">plt.figure(<span class="number">1</span>)</span><br><span class="line">plt.subplot(<span class="number">121</span>)</span><br><span class="line">plt.plot(k_range,k_loss)</span><br><span class="line">plt.xlabel(<span class="string">'Value from loss ,the best k of KNN id %d'</span>%(k_loss.index(min(k_loss))))</span><br><span class="line">plt.ylabel(<span class="string">'Error'</span>)</span><br><span class="line"><span class="comment">#plt.figure(2)</span></span><br><span class="line">plt.subplot(<span class="number">122</span>)</span><br><span class="line">plt.plot(k_range,k_score)</span><br><span class="line">plt.xlabel(<span class="string">'Value from loss ,the best k of KNN id %d'</span>%(k_score.index(min(k_score))))</span><br><span class="line">plt.ylabel(<span class="string">'score'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<h2 id="curve-fit"><a class="markdownIt-Anchor" href="#curve-fit"></a> curve fit</h2>
+<p>参数选择中，或许会存在过拟合与欠拟合的问题，给模型选择合适参数，对结果准确率起着至关重要的作用。<br>
+举栗子</p>
+<ol>
+<li>可视化特定gamma参数对SVC的影响
+<ul>
+<li>设置gamma=0.01</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.learning_curve <span class="keyword">import</span> learning_curve</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_digits</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">digits=load_digits()</span><br><span class="line">X=digits.data</span><br><span class="line">Y=digits.target</span><br><span class="line"></span><br><span class="line">train_sizes, train_loss, test_loss= learning_curve(SVC(gamma=<span class="number">0.01</span>), X, Y,cv=<span class="number">10</span>,scoring=<span class="string">'neg_mean_squared_error'</span>,</span><br><span class="line">train_sizes=[<span class="number">0.1</span>, <span class="number">0.25</span>, <span class="number">0.5</span>, <span class="number">0.75</span>, <span class="number">1</span>])</span><br><span class="line">train_loss_mean = -np.mean(train_loss, axis=<span class="number">1</span>)</span><br><span class="line">test_loss_mean = -np.mean(test_loss, axis=<span class="number">1</span>)</span><br><span class="line">	</span><br><span class="line">plt.plot(train_sizes, train_loss_mean, <span class="string">'o-'</span>, color=<span class="string">"r"</span>,</span><br><span class="line">label=<span class="string">"Training"</span>)</span><br><span class="line">plt.plot(train_sizes, test_loss_mean, <span class="string">'o-'</span>, color=<span class="string">"g"</span>,</span><br><span class="line">label=<span class="string">"Test-Cross-validation"</span>)</span><br><span class="line">	</span><br><span class="line">plt.xlabel(<span class="string">"Training examples"</span>)</span><br><span class="line">plt.ylabel(<span class="string">"Loss"</span>)</span><br><span class="line">plt.legend(loc=<span class="string">"best"</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<pre><code>+ 设置gamma=0.001
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.learning_curve <span class="keyword">import</span> learning_curve</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_digits</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">digits=load_digits()</span><br><span class="line">X=digits.data</span><br><span class="line">Y=digits.target</span><br><span class="line"></span><br><span class="line">train_sizes, train_loss, test_loss= learning_curve(SVC(gamma=<span class="number">0.001</span>), X, Y,cv=<span class="number">10</span>,scoring=<span class="string">'neg_mean_squared_error'</span>,</span><br><span class="line">train_sizes=[<span class="number">0.1</span>, <span class="number">0.25</span>, <span class="number">0.5</span>, <span class="number">0.75</span>, <span class="number">1</span>])</span><br><span class="line">train_loss_mean = -np.mean(train_loss, axis=<span class="number">1</span>)</span><br><span class="line">test_loss_mean = -np.mean(test_loss, axis=<span class="number">1</span>)</span><br><span class="line">	</span><br><span class="line">plt.plot(train_sizes, train_loss_mean, <span class="string">'o-'</span>, color=<span class="string">"r"</span>,</span><br><span class="line">label=<span class="string">"Training"</span>)</span><br><span class="line">plt.plot(train_sizes, test_loss_mean, <span class="string">'o-'</span>, color=<span class="string">"g"</span>,</span><br><span class="line">label=<span class="string">"Test-Cross-validation"</span>)</span><br><span class="line">	</span><br><span class="line">plt.xlabel(<span class="string">"Training examples"</span>)</span><br><span class="line">plt.ylabel(<span class="string">"Loss"</span>)</span><br><span class="line">plt.legend(loc=<span class="string">"best"</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>给模型选择合适的参数</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.learning_curve <span class="keyword">import</span> validation_curve</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_digits</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">digits=load_digits()</span><br><span class="line">X=digits.data</span><br><span class="line">Y=digits.target</span><br><span class="line"></span><br><span class="line">param_range=np.logspace(<span class="number">-6</span>,<span class="number">-2.3</span>,<span class="number">5</span>)</span><br><span class="line">train_loss, test_loss= validation_curve(SVC(), X, Y,param_name=<span class="string">'gamma'</span>,param_range=param_range,cv=<span class="number">10</span>,scoring=<span class="string">'neg_mean_squared_error'</span>)</span><br><span class="line">train_loss_mean = -np.mean(train_loss, axis=<span class="number">1</span>)</span><br><span class="line">test_loss_mean = -np.mean(test_loss, axis=<span class="number">1</span>)</span><br><span class="line">	</span><br><span class="line">plt.plot(param_range, train_loss_mean, <span class="string">'o-'</span>, color=<span class="string">"r"</span>,</span><br><span class="line">label=<span class="string">"Training"</span>)</span><br><span class="line">plt.plot(param_range, test_loss_mean, <span class="string">'o-'</span>, color=<span class="string">"g"</span>,</span><br><span class="line">label=<span class="string">"Test-Cross-validation"</span>)</span><br><span class="line">	</span><br><span class="line">plt.xlabel(<span class="string">"gamma"</span>)</span><br><span class="line">plt.ylabel(<span class="string">"Loss"</span>)</span><br><span class="line">plt.legend(loc=<span class="string">"best"</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      Sklearn学习笔记
+    
+    </summary>
+    
+      <category term="deep learning Analysis" scheme="http://yoursite.com/categories/deep-learning-Analysis/"/>
+    
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="deep learning" scheme="http://yoursite.com/tags/deep-learning/"/>
+    
+  </entry>
+  
+  <entry>
     <title>MySQL进阶学习笔记</title>
     <link href="http://yoursite.com/2017/10/22/MySQL%E8%BF%9B%E9%98%B6/"/>
     <id>http://yoursite.com/2017/10/22/MySQL进阶/</id>
@@ -862,182 +1038,6 @@ CREATE ROUTINE, ALTER ROUTINE, EXECUTE和GRANT权限适用于已存储的子程�
     
     
       <category term="Mysql" scheme="http://yoursite.com/tags/Mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Sklearn学习笔记</title>
-    <link href="http://yoursite.com/2017/10/22/sklearn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    <id>http://yoursite.com/2017/10/22/sklearn学习笔记/</id>
-    <published>2017-10-21T16:00:00.000Z</published>
-    <updated>2019-09-06T05:51:54.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>参考:<br>
-<a href="http://scikit-learn.org/stable/modules/linear_model.html" target="_blank" rel="noopener">sklearnm官方文档</a></p>
-<h1 id="sklearn-简介"><a class="markdownIt-Anchor" href="#sklearn-简介"></a> Sklearn 简介</h1>
-<h2 id="sklearn-是什么"><a class="markdownIt-Anchor" href="#sklearn-是什么"></a> sklearn 是什么##</h2>
-<p>python机器学习的包</p>
-<h2 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h2>
-<h3 id="使用pip"><a class="markdownIt-Anchor" href="#使用pip"></a> 使用pip</h3>
-<p>pip install scikit-learn<br>
-sudo python3 -m pip install scikit-learn</p>
-<h3 id="使用anaconda"><a class="markdownIt-Anchor" href="#使用anaconda"></a> 使用Anaconda</h3>
-<p>conda install scikit-learn</p>
-<h2 id="sklearn学习方法"><a class="markdownIt-Anchor" href="#sklearn学习方法"></a> sklearn学习方法</h2>
-<h3 id="流程图"><a class="markdownIt-Anchor" href="#流程图"></a> 流程图</h3>
-<p><img src="ml_map.png" alt="官方提供的流程图"></p>
-<h3 id="常用属性方法"><a class="markdownIt-Anchor" href="#常用属性方法"></a> 常用属性/方法</h3>
-<h5 id="data"><a class="markdownIt-Anchor" href="#data"></a> data</h5>
-<ol>
-<li>训练数据，一般用train来表示</li>
-<li>训练数据的分类属性，一般用target来表示</li>
-<li>测试数据，一般用test来表示</li>
-<li>测试数据的真实分类属性，用于评估分类器性能，一般用expected来表示</li>
-</ol>
-<h4 id="model"><a class="markdownIt-Anchor" href="#model"></a> model</h4>
-<ol>
-<li>学习数据，一般用fit()</li>
-<li>预测数据，一般用predict()</li>
-<li>评价模型准确度，一般用score()</li>
-</ol>
-<h3 id="example"><a class="markdownIt-Anchor" href="#example"></a> Example</h3>
-<ol>
-<li>演示数据类型</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#以下程序将输出sklearn库中内置的bosten数据</span></span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"></span><br><span class="line">house_test=datasets.load_boston()</span><br><span class="line">print(house_test.data[:<span class="number">20</span>])</span><br><span class="line">print(house_test.target[:<span class="number">20</span>])</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>使用系统数据和模型预测示例</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> linear_model</span><br><span class="line">lr = linear_model.LinearRegression()</span><br><span class="line">house_test=datasets.load_boston()</span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(house_test.data, house_test.target, test_size=<span class="number">0.3</span>)</span><br><span class="line">lr.fit(X_train, y_train)</span><br><span class="line">print(lr.predict(X_test)[:<span class="number">10</span>])</span><br><span class="line">print(y_test[:<span class="number">10</span>])</span><br></pre></td></tr></table></figure>
-<h1 id="标准化归一化正则化"><a class="markdownIt-Anchor" href="#标准化归一化正则化"></a> 标准化/归一化/正则化</h1>
-<h2 id="标准化规范化"><a class="markdownIt-Anchor" href="#标准化规范化"></a> 标准化/规范化##</h2>
-<h3 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h3>
-<p>数据的标准化是将数据按比例缩放，<code>使之落入一个小的特定区间</code>。由于信用指标体系的各个指标度量单位是不同的，为了能够将指标参与评价计算，需要对指标进行规范化处理，通过函数变换将其数值映射到某个数值区间。</p>
-<h3 id="算法"><a class="markdownIt-Anchor" href="#算法"></a> 算法</h3>
-<ol>
-<li>
-<p>z-score标准化(或零－均值标准化)（常用）<br>
-　y=(x-X的平均值)／X的标准差=(x-mean)/std<br>
-优点：当X的最大值和最小值未知，或孤立点左右了最大－最小规范化时，该方法有用</p>
-</li>
-<li>
-<p>最小－最大规范化(线性变换)<br>
-y=( (x-MinValue) / (MaxValue-MinValue) )(new_MaxValue-new_MinValue)+new_minValue</p>
-</li>
-<li>
-<p>小数定标规范化：通过移动X的小数位置来进行规范化<br>
-　 y= x/10的j次方　　(其中,j使得Max(|y|) &lt;1的最小整数</p>
-</li>
-<li>
-<p>对数Logistic模式：<br>
-新数据=1/（1+e^(-原数据)）</p>
-</li>
-<li>
-<p>模糊量化模式：<br>
-新数据=1/2+1/2sin[派3.1415/（极大值-极小值）*（X-（极大值-极小值）/2） ]       X为原数据</p>
-</li>
-</ol>
-<h3 id="示例"><a class="markdownIt-Anchor" href="#示例"></a> 示例</h3>
-<ol>
-<li>使用sklearn.preprocessing.scale()  可以直接将给定数据进行标准化</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#经常操作的参数为axis，以m * n矩阵举例：</span></span><br><span class="line"><span class="comment">#axis 不设置值，对 m*n 个数求均值，返回一个实数</span></span><br><span class="line"><span class="comment">#axis = 0：压缩行，对各列求均值，返回 1* n 矩阵</span></span><br><span class="line"><span class="comment">#axis =1 ：压缩列，对各行求均值，返回 m *1 矩阵</span></span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> preprocessing</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">X = np.array([[ <span class="number">1.</span>, <span class="number">-1.</span>,  <span class="number">2.</span>],</span><br><span class="line">              [ <span class="number">2.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>],</span><br><span class="line">              [ <span class="number">0.</span>,  <span class="number">1.</span>, <span class="number">-1.</span>]])</span><br><span class="line">print(X.mean(axis=<span class="number">0</span>))</span><br><span class="line">X_scaled = preprocessing.scale(X)</span><br><span class="line">print(X_scaled.mean(axis=<span class="number">0</span>))</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>标准化对准确率的影响</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> preprocessing</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets.samples_generator <span class="keyword">import</span> make_classification</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">	</span><br><span class="line">X, y = make_classification(n_samples=<span class="number">300</span>, n_features=<span class="number">2</span> , n_redundant=<span class="number">0</span>, n_informative=<span class="number">2</span>,</span><br><span class="line">random_state=<span class="number">22</span>, n_clusters_per_class=<span class="number">1</span>, scale=<span class="number">100</span>)</span><br><span class="line">plt.scatter(X[:, <span class="number">0</span>], X[:, <span class="number">1</span>], c=y)</span><br><span class="line">plt.show()</span><br><span class="line">X = preprocessing.scale(X) <span class="comment"># normalization step</span></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="number">.3</span>)</span><br><span class="line">clf = SVC()</span><br><span class="line">clf.fit(X_train, y_train)</span><br><span class="line">print(clf.score(X_test, y_test))</span><br></pre></td></tr></table></figure>
-<h2 id="归一化"><a class="markdownIt-Anchor" href="#归一化"></a> 归一化</h2>
-<h3 id="概念-2"><a class="markdownIt-Anchor" href="#概念-2"></a> 概念</h3>
-<ol>
-<li>把数变为（0，1）之间的小数<br>
-主要是为了数据处理方便提出来的，把数据映射到0～1范围之内处理，更加便捷快速。</li>
-<li>把有量纲表达式变为无量纲表达式<br>
-归一化是一种简化计算的方式，即将有量纲的表达式，经过变换，化为无量纲的表达式，成为纯量。</li>
-</ol>
-<h3 id="算法-2"><a class="markdownIt-Anchor" href="#算法-2"></a> 算法</h3>
-<ol>
-<li>
-<p>线性转换<br>
-　  y=(x-MinValue)/(MaxValue-MinValue)</p>
-</li>
-<li>
-<p>对数函数转换：<br>
-y=log10(x)</p>
-</li>
-<li>
-<p>反余切函数转换<br>
-y=atan(x)*2/PI</p>
-</li>
-<li>
-<p>线性也与对数函数结合<br>
-式(1)将输入值换算为[-1,1]区间的值，</p>
-<p>在输出层用式(2)换算回初始值，其中和分别表示训练样本集中负荷的最大值和最小值</p>
-</li>
-</ol>
-<h2 id="正则化"><a class="markdownIt-Anchor" href="#正则化"></a> 正则化</h2>
-<h3 id="概念-3"><a class="markdownIt-Anchor" href="#概念-3"></a> 概念</h3>
-<p>正则化的过程是将每个样本缩放到单位范数（每个样本的范数为1），如果后面要使用如二次型（点积）或者其它核方法计算两个样本之间的相似性这个方法会很有用。</p>
-<p>Normalization主要思想是对每个样本计算其p-范数，然后对该样本中每个元素除以该范数，这样处理的结果是使得每个处理后样本的p-范数（l1-norm,l2-norm）等于1。<br>
-p-范数的计算公式：||X||p=(|x1|<sup>p+|x2|</sup>p+…+|xn|<sup>p)</sup>1/p</p>
-<p>该方法主要应用于文本分类和聚类中。例如，对于两个TF-IDF向量的l2-norm进行点积，就可以得到这两个向量的余弦相似性。</p>
-<h3 id="在sklearn中"><a class="markdownIt-Anchor" href="#在sklearn中"></a> 在sklearn中</h3>
-<ol>
-<li>可以使用preprocessing.normalize()函数对指定数据进行转换</li>
-<li>processing.Normalizer()类实现对训练集和测试集的拟合和转换</li>
-</ol>
-<h1 id="cross-validation"><a class="markdownIt-Anchor" href="#cross-validation"></a> Cross-validation</h1>
-<h2 id="概念-4"><a class="markdownIt-Anchor" href="#概念-4"></a> 概念</h2>
-<p>cross validation大概的意思是：对于原始数据我们要将其一部分分为train_data，一部分分为test_data。train_data用于训练，test_data用于测试准确率。在test_data上测试的结果叫做validation_error。将一个算法作用于一个原始数据，我们不可能只做出随机的划分一次train和test_data，然后得到一个validation_error，就作为衡量这个算法好坏的标准。因为这样存在偶然性。我们必须好多次的随机的划分train_data和test_data，分别在其上面算出各自的validation_error。这样就有一组validation_error，根据这一组validation_error，就可以较好的准确的衡量算法的好坏</p>
-<h2 id="在sklearn中-2"><a class="markdownIt-Anchor" href="#在sklearn中-2"></a> 在sklearn中</h2>
-<p>sklearn中的cross validation模块，最主要的函数是如下函数：<br>
-sklearn.cross_validation.cross_val_score:他的调用形式是scores = cross_validation.cross_val_score(clf, raw_data, raw_target, cv=5, score_func=None)<br>
-参数解释：<br>
-clf:表示的是不同的分类器，可以是任何的分类器。比如支持向量机分类器。clf = svm.SVC(kernel=’linear’, C=1)；<br>
-raw_data：原始数据；<br>
-raw_target:原始类别标号；<br>
-cv：代表的就是不同的cross validation的方法了。引用scikit-learn上的一句话（When the cv argument is an integer, cross_val_score uses the KFold or StratifiedKFold strategies by default, the latter being used if the estimator derives from ClassifierMixin.）如果cv是一个int数字的话，那么默认使用的是KFold或者StratifiedKFold交叉，如果如果指定了类别标签则使用的是StratifiedKFold。<br>
-cross_val_score:这个函数的返回值就是对于每次不同的的划分raw_data时，在test_data上得到的分类的准确率。至于准确率的算法可以通过score_func参数指定，如果不指定的话，是用clf默认自带的准确率算法。</p>
-<h2 id="示例-2"><a class="markdownIt-Anchor" href="#示例-2"></a> 示例</h2>
-<ol>
-<li>使用系统默认数据集演示交叉验证</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris <span class="comment"># iris数据集</span></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split <span class="comment"># 分割数据模块</span></span><br><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier <span class="comment"># K最近邻(kNN，k-NearestNeighbor)分类算法</span></span><br><span class="line"><span class="keyword">from</span> sklearn.cross_validation <span class="keyword">import</span> cross_val_score <span class="comment"># K折交叉验证模块</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#加载iris数据集</span></span><br><span class="line">iris = load_iris()</span><br><span class="line">X = iris.data</span><br><span class="line">y = iris.target</span><br><span class="line"></span><br><span class="line"><span class="comment">#分割数据并</span></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#建立模型</span></span><br><span class="line">knn = KNeighborsClassifier()</span><br><span class="line"></span><br><span class="line"><span class="comment">#训练模型</span></span><br><span class="line">knn.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用K折交叉验证模块</span></span><br><span class="line">scores = cross_val_score(knn, X, y, cv=<span class="number">5</span>, scoring=<span class="string">'accuracy'</span>)</span><br><span class="line">print(scores)</span><br><span class="line"><span class="comment">#print(scores.mean())</span></span><br><span class="line"><span class="comment">#将准确率打印出</span></span><br><span class="line">print(knn.score(X_test, y_test))</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>为模交叉验证选择合适的参数</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris <span class="comment"># iris数据集</span></span><br><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier <span class="comment"># K最近邻(kNN，k-NearestNeighbor)分类算法</span></span><br><span class="line"><span class="keyword">from</span> sklearn.cross_validation <span class="keyword">import</span> cross_val_score <span class="comment"># K折交叉验证模块</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#加载iris数据集</span></span><br><span class="line">iris = load_iris()</span><br><span class="line">X = iris.data</span><br><span class="line">y = iris.target</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">k_range=range(<span class="number">1</span>,<span class="number">10</span>)</span><br><span class="line">k_loss=[]</span><br><span class="line">k_score=[]</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> k_range:</span><br><span class="line">    <span class="comment">#建立模型</span></span><br><span class="line">    knn = KNeighborsClassifier(n_neighbors=k)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#使用K折交叉验证模块</span></span><br><span class="line">    scores = cross_val_score(knn, X, y, cv=<span class="number">5</span>, scoring=<span class="string">'accuracy'</span>)</span><br><span class="line">    loss = -cross_val_score(knn, X, y, cv=<span class="number">5</span>, scoring=<span class="string">'neg_mean_squared_error'</span>)<span class="comment">#'neg_mean_squared_error' 'mean_squared_error'</span></span><br><span class="line">    k_loss.append(loss.mean())</span><br><span class="line">    k_score.append(scores.mean()) <span class="comment">#add mean of the scores</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">plt.figure(<span class="number">1</span>)</span><br><span class="line">plt.subplot(<span class="number">121</span>)</span><br><span class="line">plt.plot(k_range,k_loss)</span><br><span class="line">plt.xlabel(<span class="string">'Value from loss ,the best k of KNN id %d'</span>%(k_loss.index(min(k_loss))))</span><br><span class="line">plt.ylabel(<span class="string">'Error'</span>)</span><br><span class="line"><span class="comment">#plt.figure(2)</span></span><br><span class="line">plt.subplot(<span class="number">122</span>)</span><br><span class="line">plt.plot(k_range,k_score)</span><br><span class="line">plt.xlabel(<span class="string">'Value from loss ,the best k of KNN id %d'</span>%(k_score.index(min(k_score))))</span><br><span class="line">plt.ylabel(<span class="string">'score'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<h2 id="curve-fit"><a class="markdownIt-Anchor" href="#curve-fit"></a> curve fit</h2>
-<p>参数选择中，或许会存在过拟合与欠拟合的问题，给模型选择合适参数，对结果准确率起着至关重要的作用。<br>
-举栗子</p>
-<ol>
-<li>可视化特定gamma参数对SVC的影响
-<ul>
-<li>设置gamma=0.01</li>
-</ul>
-</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.learning_curve <span class="keyword">import</span> learning_curve</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_digits</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">digits=load_digits()</span><br><span class="line">X=digits.data</span><br><span class="line">Y=digits.target</span><br><span class="line"></span><br><span class="line">train_sizes, train_loss, test_loss= learning_curve(SVC(gamma=<span class="number">0.01</span>), X, Y,cv=<span class="number">10</span>,scoring=<span class="string">'neg_mean_squared_error'</span>,</span><br><span class="line">train_sizes=[<span class="number">0.1</span>, <span class="number">0.25</span>, <span class="number">0.5</span>, <span class="number">0.75</span>, <span class="number">1</span>])</span><br><span class="line">train_loss_mean = -np.mean(train_loss, axis=<span class="number">1</span>)</span><br><span class="line">test_loss_mean = -np.mean(test_loss, axis=<span class="number">1</span>)</span><br><span class="line">	</span><br><span class="line">plt.plot(train_sizes, train_loss_mean, <span class="string">'o-'</span>, color=<span class="string">"r"</span>,</span><br><span class="line">label=<span class="string">"Training"</span>)</span><br><span class="line">plt.plot(train_sizes, test_loss_mean, <span class="string">'o-'</span>, color=<span class="string">"g"</span>,</span><br><span class="line">label=<span class="string">"Test-Cross-validation"</span>)</span><br><span class="line">	</span><br><span class="line">plt.xlabel(<span class="string">"Training examples"</span>)</span><br><span class="line">plt.ylabel(<span class="string">"Loss"</span>)</span><br><span class="line">plt.legend(loc=<span class="string">"best"</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<pre><code>+ 设置gamma=0.001
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.learning_curve <span class="keyword">import</span> learning_curve</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_digits</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">digits=load_digits()</span><br><span class="line">X=digits.data</span><br><span class="line">Y=digits.target</span><br><span class="line"></span><br><span class="line">train_sizes, train_loss, test_loss= learning_curve(SVC(gamma=<span class="number">0.001</span>), X, Y,cv=<span class="number">10</span>,scoring=<span class="string">'neg_mean_squared_error'</span>,</span><br><span class="line">train_sizes=[<span class="number">0.1</span>, <span class="number">0.25</span>, <span class="number">0.5</span>, <span class="number">0.75</span>, <span class="number">1</span>])</span><br><span class="line">train_loss_mean = -np.mean(train_loss, axis=<span class="number">1</span>)</span><br><span class="line">test_loss_mean = -np.mean(test_loss, axis=<span class="number">1</span>)</span><br><span class="line">	</span><br><span class="line">plt.plot(train_sizes, train_loss_mean, <span class="string">'o-'</span>, color=<span class="string">"r"</span>,</span><br><span class="line">label=<span class="string">"Training"</span>)</span><br><span class="line">plt.plot(train_sizes, test_loss_mean, <span class="string">'o-'</span>, color=<span class="string">"g"</span>,</span><br><span class="line">label=<span class="string">"Test-Cross-validation"</span>)</span><br><span class="line">	</span><br><span class="line">plt.xlabel(<span class="string">"Training examples"</span>)</span><br><span class="line">plt.ylabel(<span class="string">"Loss"</span>)</span><br><span class="line">plt.legend(loc=<span class="string">"best"</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>给模型选择合适的参数</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.learning_curve <span class="keyword">import</span> validation_curve</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_digits</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">digits=load_digits()</span><br><span class="line">X=digits.data</span><br><span class="line">Y=digits.target</span><br><span class="line"></span><br><span class="line">param_range=np.logspace(<span class="number">-6</span>,<span class="number">-2.3</span>,<span class="number">5</span>)</span><br><span class="line">train_loss, test_loss= validation_curve(SVC(), X, Y,param_name=<span class="string">'gamma'</span>,param_range=param_range,cv=<span class="number">10</span>,scoring=<span class="string">'neg_mean_squared_error'</span>)</span><br><span class="line">train_loss_mean = -np.mean(train_loss, axis=<span class="number">1</span>)</span><br><span class="line">test_loss_mean = -np.mean(test_loss, axis=<span class="number">1</span>)</span><br><span class="line">	</span><br><span class="line">plt.plot(param_range, train_loss_mean, <span class="string">'o-'</span>, color=<span class="string">"r"</span>,</span><br><span class="line">label=<span class="string">"Training"</span>)</span><br><span class="line">plt.plot(param_range, test_loss_mean, <span class="string">'o-'</span>, color=<span class="string">"g"</span>,</span><br><span class="line">label=<span class="string">"Test-Cross-validation"</span>)</span><br><span class="line">	</span><br><span class="line">plt.xlabel(<span class="string">"gamma"</span>)</span><br><span class="line">plt.ylabel(<span class="string">"Loss"</span>)</span><br><span class="line">plt.legend(loc=<span class="string">"best"</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      Sklearn学习笔记
-    
-    </summary>
-    
-      <category term="deep learning Analysis" scheme="http://yoursite.com/categories/deep-learning-Analysis/"/>
-    
-    
-      <category term="python" scheme="http://yoursite.com/tags/python/"/>
-    
-      <category term="deep learning" scheme="http://yoursite.com/tags/deep-learning/"/>
     
   </entry>
   
